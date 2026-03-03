@@ -1,0 +1,1016 @@
+PRD: Professional Portfolio Website (GitHub Pages) for Senior Implementation Manager
+
+Document Owner: Jon (Portfolio owner)
+Product Type: Personal professional portfolio website
+Platform: GitHub Pages (static site)
+Status: Draft PRD (MVP + launch guidance)
+Target Launch: TBD (see timeline section)
+
+1) Context
+
+This product is a professional portfolio website for a U.S.-based Senior Implementation Manager candidate in healthcare technology. The site is intended to support career advancement into enterprise-facing implementation leadership roles (with Cohere Health’s Senior Implementation Manager role as the reference persona and tone benchmark).
+
+The site should present a clear, credible professional narrative that demonstrates:
+
+end-to-end implementation leadership,
+
+client-facing communication,
+
+cross-functional execution,
+
+operational rigor,
+
+healthcare domain fluency,
+
+and the ability to translate complex work into actionable plans.
+
+The structure should be inspired by the simplicity and scan-ability of the referenced GitHub Pages site (clear navigation, straightforward content sections, project-style entries, contact links), while adapting the content and tone to implementation/program delivery rather than technical research projects. The reference site uses a simple top navigation, project listing, and contact links that are easy to scan and maintain.
+
+Cohere Health’s current Senior Implementation Manager posting emphasizes end-to-end implementation ownership, pre-sales/solutioning partnership, cross-functional coordination, client launch success, risk tracking, project plan management, and building repeatable implementation playbooks—these are the persona anchors this portfolio should reflect.
+
+2) Problem Statement
+Problem
+
+A resume and LinkedIn profile alone often do not fully demonstrate how an implementation leader:
+
+structures complex programs,
+
+manages risks and dependencies,
+
+communicates across technical/commercial/clinical stakeholders,
+
+and drives repeatable outcomes.
+
+For senior healthcare implementation roles, hiring teams need evidence of leadership style, systems thinking, execution discipline, and communication clarity, not just job titles.
+
+Why this matters
+
+Without a purpose-built portfolio:
+
+the candidate’s implementation strengths may appear generic,
+
+nuanced project leadership impact may be under-communicated,
+
+and opportunities to demonstrate strategic thinking and operational maturity may be lost.
+
+3) Vision Statement
+
+Create a professional portfolio website that makes the candidate feel like a credible, enterprise-ready Senior Implementation Manager in healthcare technology within the first 60–90 seconds of review.
+
+The site should communicate:
+
+Trustworthiness (organized, polished, accurate),
+
+Execution capability (plans, outcomes, risk management, cross-functional leadership),
+
+Healthcare implementation relevance (payer/provider workflows, launches, operational rigor),
+
+Communication excellence (clear, concise, structured narrative),
+
+Technical fluency (enough to partner with product/engineering without over-positioning as a developer).
+
+4) Product Goals
+Primary Goals (MVP)
+
+Establish professional credibility quickly
+
+A recruiter/hiring manager can understand who the candidate is, what they do, and what roles they target in under 1 minute.
+
+Demonstrate implementation leadership competencies
+
+Showcase examples of cross-functional execution, launch management, risk management, stakeholder communication, and process improvement.
+
+Enable contact and next steps
+
+Make it easy for recruiters, hiring managers, and network contacts to reach out.
+
+Be easy to maintain
+
+Content updates should be possible with simple markdown/HTML edits and GitHub commits.
+
+Secondary Goals (Post-MVP)
+
+Demonstrate thought leadership in healthcare implementation and operations.
+
+Build a stronger personal brand for consulting/speaking/advisory opportunities.
+
+Improve discoverability via basic SEO and sharable links.
+
+5) Success Metrics
+User Outcome Metrics (Primary)
+
+A “great user outcome” means a target visitor can:
+
+Identify the candidate’s role and value proposition immediately.
+
+Understand relevant implementation experience through 2–3 high-quality case/project summaries.
+
+Feel confidence in the candidate’s communication and organizational skills.
+
+Take action (contact, LinkedIn message, interview request).
+
+Product Metrics (Practical/Observable)
+
+Leading indicators (first 30–90 days):
+
+Portfolio is live and accessible on GitHub Pages (desktop + mobile).
+
+All core sections complete and reviewed for clarity.
+
+No broken links (resume, LinkedIn, contact, project references).
+
+Lighthouse/performance baseline acceptable for static content pages.
+
+Time-to-update a project/case entry is <30 minutes.
+
+Outcome indicators (after launch):
+
+Increase in recruiter/hiring manager responses referencing the portfolio.
+
+Increased interview conversion from applications where the portfolio is included.
+
+Positive qualitative feedback on clarity/professionalism (e.g., “well-organized,” “easy to follow,” “strong examples”).
+
+6) Target Audience
+Primary Audience
+
+Hiring Managers (Implementation / Customer Operations / Delivery)
+
+Need evidence of delivery leadership, stakeholder management, and execution reliability.
+
+Care about launch outcomes, risk management, and cross-functional coordination.
+
+Recruiters / Talent Acquisition
+
+Need fast signal on fit, seniority, communication quality, and domain relevance.
+
+Prefer concise, skimmable content and strong narrative positioning.
+
+Cross-functional Interviewers (Product, Engineering, Solutions, Customer Success)
+
+Need proof the candidate can collaborate effectively across technical and non-technical teams.
+
+Look for process thinking, planning rigor, and translation skills.
+
+Secondary Audience
+
+Personal Branding Consultants / Career Coaches
+
+Need a clean content architecture to refine messaging and positioning.
+
+Professional Network / Referrals
+
+Need an easy link to understand the candidate’s experience and share with decision-makers.
+
+7) Reference Persona (Career Target) and Content Implications
+
+Using Cohere Health’s Senior Implementation Manager role as the target persona, the portfolio should reflect these themes:
+
+Persona-aligned responsibilities to represent
+
+End-to-end implementation ownership
+
+Client-facing launch coordination
+
+Partnership with Solutions during pre-implementation phases
+
+Collaboration with Product/Strategy/Engineering
+
+Detailed project schedule/work plan management
+
+Risk/issue tracking and reporting
+
+Process optimization and repeatable playbook creation
+
+Cross-functional relationship building
+
+Comfort with ambiguity and fast-paced environments
+
+Strong communication and storytelling (including slides/executive updates)
+
+These expectations are explicitly described in the Cohere Health job posting (e.g., end-to-end ownership, work plans, risk tracking, cross-functional liaison work, and playbook refinement).
+
+Content/tone implications
+
+The site should sound like someone who:
+
+leads implementation programs,
+
+can synthesize complexity,
+
+is operationally disciplined,
+
+and communicates with calm authority.
+
+It should not read like:
+
+a generic resume page,
+
+a purely technical engineering portfolio,
+
+or a marketing-heavy personal brand site with low substance.
+
+8) Product Scope (MVP)
+In Scope (MVP)
+
+A static GitHub Pages portfolio site with the following sections:
+
+Home / Overview (hero + summary)
+
+About
+
+Experience
+
+Selected Implementation Projects / Case Studies
+
+Thought Leadership (short-form insights/articles or notes)
+
+Skills / Tooling / Methods
+
+Contact
+
+Resume link/download
+
+LinkedIn and GitHub links
+
+Out of Scope (MVP)
+
+Blog CMS
+
+Dynamic backend
+
+Authenticated areas
+
+Analytics dashboard with advanced event instrumentation
+
+Contact form backend (email service integration)
+
+Custom domain (optional post-MVP)
+
+Full design system package / Figma component library
+
+Interactive case-study visualizations (beyond lightweight static visuals)
+
+9) Non-Goals (Explicit)
+
+To keep MVP focused, the following are non-goals:
+
+Building a complex web app
+
+This is a professional portfolio, not a SaaS product.
+
+Demonstrating full-stack engineering depth
+
+Technical fluency should be visible, but the primary signal is implementation leadership.
+
+Publishing sensitive client details
+
+No confidential data, protected information, or proprietary implementation specifics.
+
+Over-optimizing visual effects
+
+Clean, readable, credible presentation is more important than animation-heavy design.
+
+Creating a long-form content engine on day one
+
+Thought leadership can begin with a few strong pieces instead of a full editorial cadence.
+
+10) User Experience (UX) Principles
+UX Goals
+
+Fast comprehension: visitors understand value proposition quickly.
+
+High scan-ability: content chunked for busy recruiters/hiring managers.
+
+Professional credibility: polished but restrained visuals.
+
+Low friction navigation: minimal clicks to core evidence and contact.
+
+Accessible readability: legible typography, clear hierarchy, mobile-friendly.
+
+UX Principles
+
+Clarity over cleverness
+
+Prefer direct labels like “Experience,” “Projects,” “Contact.”
+
+Evidence over claims
+
+Use outcomes, examples, and structured case summaries instead of broad statements.
+
+Progressive disclosure
+
+Show concise summaries first; provide expandable/detail pages if needed.
+
+Consistency
+
+Reuse the same template format for project/case entries (context → role → actions → outcome).
+
+Executive-grade writing
+
+Short paragraphs, strong headers, bullet points where appropriate.
+
+Representative User Journeys
+Journey A: Recruiter (2–3 minute scan)
+
+Lands on homepage → reads positioning summary → scans experience and projects → opens LinkedIn/resume → contacts candidate.
+
+Journey B: Hiring Manager (5–10 minute evaluation)
+
+Lands on homepage → reads role fit → reviews 2–3 implementation case studies → assesses thought leadership tone → views contact/resume → schedules interview.
+
+Journey C: Cross-functional interviewer
+
+Reviews project/case entries to understand how candidate handles product/engineering/clinical collaboration and risk management.
+
+11) Information Architecture & Detailed Features / Sections
+11.1 Home / Landing (Hero + Summary)
+
+Purpose: Establish role fit and value proposition immediately.
+
+Content
+
+Name
+
+Title/positioning statement (e.g., Senior Implementation Manager | Healthcare Technology | Client Launch & Cross-Functional Delivery)
+
+2–4 sentence professional summary
+
+Primary CTA: “View Experience” / “View Projects”
+
+Secondary CTA: “Contact”
+
+Resume + LinkedIn quick links
+
+Acceptance Criteria
+
+Visitor can identify role target and domain in <10 seconds.
+
+Hero text communicates both strategic and execution strengths.
+
+11.2 About
+
+Purpose: Tell the professional story and leadership style.
+
+Content
+
+Professional background summary
+
+Leadership philosophy (implementation, stakeholder alignment, execution discipline)
+
+Domain focus (healthcare tech / payer-provider workflows / operations)
+
+Working style traits (organized, collaborative, analytical, calm under ambiguity)
+
+Optional headshot (professional, neutral)
+
+Acceptance Criteria
+
+Reads as credible and human, not generic.
+
+Reinforces persona fit for client-facing enterprise roles.
+
+11.3 Experience
+
+Purpose: Present career progression with relevance to target roles.
+
+Content Structure (per role)
+
+Company / role / dates / location (or remote)
+
+Scope summary (team/stakeholders/program type)
+
+Key responsibilities (implementation leadership, planning, stakeholder management)
+
+Selected outcomes (process improvements, launches, playbook improvements, communication cadence, operational efficiencies)
+
+Tools/methods used (e.g., project plans, status reporting, risk logs, process documentation)
+
+Acceptance Criteria
+
+Emphasis is on outcomes and leadership behaviors, not duty lists.
+
+Top roles align visibly with enterprise implementation management expectations.
+
+11.4 Projects / Selected Implementation Case Studies
+
+Purpose: Showcase execution and analytical clarity through structured examples.
+
+Why this matters
+The reference site’s project-list format is effective because it is easy to scan and maintain (title, description, tools/keywords, date). This format can be adapted to implementation case studies.
+
+Recommended Case Study Template (MVP)
+
+Title
+
+Context
+
+Problem / Goal
+
+Role & Stakeholders
+
+Approach
+
+planning
+
+coordination
+
+risks/issues management
+
+communication rhythm
+
+Outcome / Impact
+
+What I learned / repeatable pattern
+
+Keywords / tools (e.g., project planning, stakeholder alignment, reporting, process improvement)
+
+Example case categories
+
+New client implementation launch
+
+Cross-functional process improvement initiative
+
+Workflow standardization / playbook creation
+
+Communication framework for complex stakeholders
+
+Technical delivery coordination with engineering/product teams
+
+Acceptance Criteria
+
+At least 3 strong case studies in MVP.
+
+Each case demonstrates leadership, coordination, and outcome orientation.
+
+No confidential or proprietary details disclosed.
+
+11.5 Thought Leadership
+
+Purpose: Demonstrate communication depth and strategic thinking.
+
+MVP Format Options
+
+3–5 short essays or “field notes” (500–1200 words)
+
+OR shorter insight posts with structured takeaways
+
+Suggested topics (aligned to target persona)
+
+How to de-risk healthcare implementations
+
+Converting vision into launch plans
+
+Stakeholder alignment in cross-functional environments
+
+What strong implementation status reporting looks like
+
+Designing repeatable implementation playbooks
+
+Acceptance Criteria
+
+Writing is concise, useful, and practical.
+
+Content reinforces implementation leadership signal (not generic productivity advice).
+
+11.6 Skills / Tools / Methods
+
+Purpose: Provide a quick-fit scan for hiring teams.
+
+Suggested categories
+
+Implementation & Program Delivery: project planning, launch readiness, risk/issue management, stakeholder coordination
+
+Client Leadership: executive communication, facilitation, escalations, change management support
+
+Cross-functional Collaboration: product, engineering, solutions, customer success, operations
+
+Healthcare Domain (as applicable): payer/provider workflows, care operations, implementation constraints
+
+Tools: PowerPoint/storytelling via slides, Excel, project planning tools (e.g., Microsoft Project, Monday.com), documentation/collaboration tools
+
+Cohere’s role specifically references project plan tools, PowerPoint storytelling, Monday.com, Microsoft Project, and Excel, which makes this section especially relevant to target-fit signaling.
+
+Acceptance Criteria
+
+Skills are grouped and contextualized, not a keyword dump.
+
+Tools are presented as enablers of delivery, not the core identity.
+
+11.7 Contact
+
+Purpose: Minimize friction to outreach.
+
+MVP Content
+
+Professional email (mailto link)
+
+LinkedIn profile
+
+Resume link (PDF)
+
+Optional GitHub profile (for technical credibility and hosted site source)
+
+Design requirement
+
+Contact methods visible in nav and footer.
+
+No mandatory form backend in MVP (static site first).
+
+Acceptance Criteria
+
+Contact options are visible on every page (header/footer or persistent section link).
+
+All links tested and working.
+
+12) Design Guidelines (Style, Tone, and UI Direction)
+12.1 Style Direction
+
+Use the reference site as inspiration for:
+
+simple top navigation,
+
+clean section hierarchy,
+
+card/list-based project entries,
+
+minimal visual clutter,
+
+static-hosting-friendly structure.
+
+Desired visual qualities
+
+Professional
+
+Minimal
+
+Structured
+
+Calm
+
+Modern but not trend-heavy
+
+Enterprise-appropriate
+
+Avoid
+
+Overly playful branding
+
+Excessive animation or motion
+
+Dense text walls without hierarchy
+
+Visual styles that overshadow content credibility
+
+12.2 Tone Guidelines
+
+Tone target: Professional, accessible, confident, structured.
+
+Writing characteristics
+
+Clear and direct
+
+Outcome-oriented
+
+Low jargon unless necessary
+
+Explains complex work in plain language
+
+Balanced confidence (credible, not self-promotional)
+
+Content style rules
+
+Lead with impact and context.
+
+Use concrete examples over abstract claims.
+
+Prefer short paragraphs and lists for scan-ability.
+
+Maintain consistent terminology (e.g., implementation, launch, stakeholders, risks, outcomes).
+
+12.3 UX/Accessibility Guidelines
+
+Mobile responsive layout (phone, tablet, desktop)
+
+Sufficient color contrast
+
+Semantic HTML headings (h1, h2, etc.)
+
+Keyboard navigable links/buttons
+
+Alt text for images/headshots
+
+Avoid text embedded in images
+
+Performance-friendly static assets (compressed images)
+
+13) Technical Requirements
+13.1 Hosting & Deployment (GitHub Pages)
+
+The site will be hosted on GitHub Pages for simplicity, low cost, and version-controlled maintenance. GitHub supports publishing from a branch or via GitHub Actions, and recommends branch-based publishing for simple setups and custom Actions workflows when a custom build process is needed.
+
+Recommended MVP deployment approach (Option A: simplest)
+
+Static site in repository root (or /docs)
+
+Publish using GitHub Pages “Deploy from a branch”
+
+No build step required (plain HTML/CSS/JS)
+
+Recommended scalable approach (Option B: preferred if using framework)
+
+GitHub Pages with GitHub Actions custom workflow
+
+Build + deploy from main branch
+
+Keeps source and built artifacts organized
+
+Supports static site generators/frameworks cleanly
+
+GitHub docs explicitly support custom workflows for Pages deployments and provide templates for common static site generators.
+
+13.2 Framework / Stack Options (Recommended)
+MVP recommendation
+
+Choose one of these based on desired complexity:
+
+Option 1 (Lowest complexity):
+
+HTML + CSS + minimal JavaScript
+
+Best for speed and long-term simplicity
+
+Option 2 (Balanced maintainability):
+
+Static site generator (e.g., Jekyll or Eleventy)
+
+Good for reusable templates (projects/case studies)
+
+Option 3 (More polish/flexibility):
+
+React-based static export (if comfortable)
+
+Use only if you want component reuse and future expansion
+
+PRD recommendation
+
+For this portfolio’s goals, Option 1 or 2 is sufficient and preferred for MVP:
+
+fast to build,
+
+easy to maintain,
+
+minimal deployment complexity,
+
+excellent fit for GitHub Pages.
+
+13.3 Repository & CI/CD Setup (Suggested)
+Repository Structure (example)
+
+/ or /docs for site source (MVP)
+
+/assets for images/icons
+
+/css, /js
+
+/content (if using markdown or generator)
+
+README.md with local dev + deployment instructions
+
+CI/CD (if using GitHub Actions)
+
+Workflow goals
+
+Build site (if applicable)
+
+Validate links (optional but useful)
+
+Deploy to GitHub Pages on push to main
+
+Required checks (recommended)
+
+HTML/CSS linting (optional MVP)
+
+Broken link check (pre-launch)
+
+Build success before deploy
+
+Environments
+
+Production: GitHub Pages live URL
+
+Optional preview: local dev preview only for MVP
+
+13.4 Technical Performance & Quality Requirements
+
+Fast page load on standard mobile connections (lightweight static assets)
+
+Responsive layout for common breakpoints
+
+No JavaScript dependence for core content readability
+
+Basic SEO metadata on all pages:
+
+title tags
+
+meta description
+
+Open Graph tags (optional MVP+)
+
+Favicon and social preview image (MVP+ if time allows)
+
+13.5 Security / Privacy Requirements
+
+No sensitive client data, PHI, or proprietary implementation details
+
+No hidden metadata in uploaded files/screenshots containing sensitive info
+
+Contact info presented intentionally (consider alias email if desired)
+
+If using analytics later, disclose and keep implementation lightweight
+
+14) Product Scope Details by Release
+MVP (Required for launch)
+
+Home, About, Experience, Projects/Case Studies, Contact
+
+Resume + LinkedIn links
+
+Responsive layout
+
+GitHub Pages deployment
+
+At least 3 case studies
+
+Professional writing + proofreading pass
+
+Launch+1 (Polish)
+
+Thought Leadership section
+
+Skills/Methods section refinement
+
+Better visual hierarchy (cards, icons, subtle polish)
+
+SEO/meta tags optimization
+
+Optional custom domain + HTTPS
+
+Basic analytics (e.g., page views / link click tracking)
+
+Launch+2 (Expansion)
+
+Additional case studies and writing samples
+
+Downloadable one-page implementation philosophy/operating model
+
+Speaking/advisory page (if relevant)
+
+Content workflow/templates for ongoing updates
+
+15) Dependencies
+Content Dependencies
+
+Finalized resume content and dates
+
+LinkedIn URL and desired public profile alignment
+
+3–5 portfolio case studies (sanitized)
+
+Contact email and preferred CTA
+
+Optional headshot and personal branding copy
+
+Technical Dependencies
+
+GitHub account and repository
+
+GitHub Pages enabled in repo settings
+
+Chosen tech stack (plain HTML/CSS vs generator)
+
+Optional GitHub Actions workflow setup (if using build step)
+
+Review Dependencies
+
+Self-review for confidentiality and accuracy
+
+Optional peer/mentor review for clarity and credibility
+
+Optional branding/editor pass for tone consistency
+
+16) Risks and Mitigations
+Risk 1: Content feels too generic
+
+Mitigation: Use structured case studies with concrete outcomes and repeatable lessons.
+
+Risk 2: Overly dense text reduces recruiter usability
+
+Mitigation: Enforce scan-friendly layout, summaries, and section templates.
+
+Risk 3: Site looks technical but not role-aligned
+
+Mitigation: Keep positioning centered on implementation leadership and client delivery outcomes.
+
+Risk 4: Scope creep delays launch
+
+Mitigation: Ship MVP first (core sections + 3 case studies), defer polish features.
+
+Risk 5: Confidentiality issues in examples
+
+Mitigation: Sanitize names, metrics, and implementation details; use generalized descriptions where necessary.
+
+17) Suggested Timeline and Milestones
+Phase 0: Planning & Inputs (Week 1)
+
+Milestones
+
+Confirm target positioning statement
+
+Finalize site map (MVP sections)
+
+Select stack (HTML/CSS vs static site generator)
+
+Create repository and deployment plan
+
+Gather resume, links, and source content
+
+Outputs
+
+Approved PRD
+
+Content inventory
+
+Repo initialized
+
+Phase 1: MVP Content Drafting (Week 1–2)
+
+Milestones
+
+Draft homepage summary and About
+
+Draft Experience entries
+
+Draft 3 core implementation case studies
+
+Draft Contact content + resume link setup
+
+Outputs
+
+Content complete for MVP
+
+Editing pass for tone consistency
+
+Phase 2: MVP Build (Week 2–3)
+
+Milestones
+
+Implement layout and navigation
+
+Build responsive sections/pages
+
+Add project/case study templates
+
+Add footer/contact links
+
+Deploy initial GitHub Pages version
+
+Outputs
+
+Functional MVP site on GitHub Pages
+
+Mobile/desktop responsive baseline
+
+Phase 3: QA + Polish (Week 3)
+
+Milestones
+
+Proofread content
+
+Link validation
+
+Accessibility checks (headings, alt text, contrast)
+
+Performance sanity check
+
+Final visual polish
+
+Outputs
+
+Launch-ready MVP
+
+QA checklist completed
+
+Phase 4: Launch (End of Week 3 or Week 4)
+
+Milestones
+
+Publish final live URL
+
+Add URL to resume/LinkedIn/applications
+
+Share for feedback (trusted peers / mentors)
+
+Outputs
+
+Public portfolio live
+
+Distribution complete
+
+Phase 5: Post-Launch Enhancements (Week 4+)
+
+Milestones
+
+Add Thought Leadership section
+
+Add additional case studies
+
+Add analytics/SEO improvements
+
+Optional custom domain
+
+Outputs
+
+Iterative improvements based on feedback and usage
+
+18) Open Questions / Decisions Needed
+
+Stack choice for MVP
+
+Plain HTML/CSS (fastest) vs Jekyll/Eleventy (better templating)?
+
+Single-page vs multi-page
+
+One-page portfolio with anchors vs separate pages for case studies?
+
+Level of detail for case studies
+
+Short recruiter-friendly summaries only, or deeper expandable pages?
+
+Thought leadership at launch
+
+Include immediately (1–2 pieces) or defer until post-launch?
+
+Visual branding
+
+Use a neutral professional palette only, or include subtle personal brand accent color?
+
+Resume hosting
+
+PDF in repo vs external link?
+
+Custom domain
+
+Use default GitHub Pages URL initially, or configure a custom domain after MVP?
+
+Analytics
+
+Add lightweight analytics at launch or defer for privacy/simplicity?
+
+Confidentiality boundaries
+
+What metrics/examples can be shared safely and credibly?
+
+Audience prioritization
+
+Optimize first for recruiters (scan speed) or hiring managers (deeper case evidence)?
+
+19) Acceptance Criteria (PRD-Level “Done” Definition)
+
+This PRD is considered successfully executed when the delivered portfolio website:
+
+Is live on GitHub Pages and accessible publicly.
+
+Clearly positions the candidate as a Senior Implementation Manager for healthcare tech roles.
+
+Includes core sections (Home, About, Experience, Projects/Case Studies, Contact).
+
+Demonstrates persona-aligned strengths (cross-functional delivery, client-facing communication, planning, risk management, process improvement).
+
+Is readable, professional, responsive, and easy to navigate.
+
+Provides clear next steps for contact and review (resume/LinkedIn).
+
+Avoids confidential information and maintains professional polish.
+
+20) Appendix: Persona Signal Checklist (for Content Review)
+
+Before launch, verify the site clearly signals:
+
+End-to-end implementation ownership
+
+Client-facing leadership
+
+Cross-functional coordination (Solutions, Product, Engineering, Customer Success, Ops)
+
+Project planning rigor (timelines, deliverables, stakeholders)
+
+Risk/issue tracking and communication
+
+Process optimization / repeatability / playbook mindset
+
+Healthcare technology implementation relevance
+
+Strong written communication and executive clarity
+
+This checklist is directly informed by the Cohere Health Senior Implementation Manager job description and helps ensure the portfolio maps to the target role.
