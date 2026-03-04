@@ -626,11 +626,11 @@ function initAmbientSkillsGraph() {
     };
 
     const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id(d => d.id).distance(76).strength(0.18))
-        .force("charge", d3.forceManyBody().strength(-90))
+        .force("link", d3.forceLink(links).id(d => d.id).distance(85).strength(0.12))
+        .force("charge", d3.forceManyBody().strength(-150))
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("x", d3.forceX().x(forceXTarget).strength(0.18))
-        .force("y", d3.forceY().y(forceYTarget).strength(0.2))
+        .force("x", d3.forceX().x(forceXTarget).strength(0.08))
+        .force("y", d3.forceY().y(forceYTarget).strength(0.08))
         .force("collide", d3.forceCollide().radius(d => (d.radius * 2.4) + 6).iterations(2))
         .velocityDecay(0.6)
         .alphaTarget(0.003);
@@ -667,8 +667,8 @@ function initAmbientSkillsGraph() {
         updateNodeAnchorTargets();
 
         simulation.force("center", d3.forceCenter(width / 2, height / 2));
-        simulation.force("x", d3.forceX().x(d => d.targetXNorm * width).strength(0.18));
-        simulation.force("y", d3.forceY().y(d => d.targetYNorm * height).strength(0.2));
+        simulation.force("x", d3.forceX().x(d => d.targetXNorm * width).strength(0.08));
+        simulation.force("y", d3.forceY().y(d => d.targetYNorm * height).strength(0.08));
 
         // Gentle kick to adjust to new bounds
         simulation.alpha(0.15).restart();
