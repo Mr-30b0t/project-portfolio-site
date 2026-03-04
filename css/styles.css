@@ -337,8 +337,39 @@ a {
 }
 
 .hero-content {
-    max-width: 900px;
-    margin: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-text {
+    flex: 0 0 55%;
+    max-width: 55%;
+    padding-right: var(--space-xl);
+    z-index: 10;
+}
+
+.hero-graph {
+    flex: 0 0 45%;
+    max-width: 45%;
+    height: 700px;
+    /* Expand vertical canvas for airiness */
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    z-index: 1;
+    opacity: 0.85;
+    overflow: hidden;
+    /* strictly clip nodes drifting past boundaries so they never overlap text */
+    /* Soften the edges so it fades into the dark background naturally but allows wide spread */
+    mask-image: radial-gradient(circle at center, black 60%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 90%);
 }
 
 .hero-title {
@@ -554,7 +585,35 @@ a {
         font-size: 2.5rem;
     }
 
+    .hero-content {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: var(--space-xl);
+    }
+
+    .hero-text {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 0;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
     .hero-ctas {
         flex-direction: column;
+        justify-content: center;
+    }
+
+    .hero-graph {
+        flex: 0 0 100%;
+        max-width: 100%;
+        width: 100%;
+        height: 500px;
+        min-width: unset;
+        margin-top: calc(var(--space-xl) * -1);
+        z-index: -1;
+        opacity: 0.4;
     }
 }
