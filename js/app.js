@@ -383,10 +383,308 @@ function initSkillGraph() {
     }
 }
 
+// --- D3.js Ambient Skills Graph (Decorative Background) ---
+function initAmbientSkillsGraph() {
+    const section = document.getElementById('skills');
+    const container = document.getElementById('skills-graph');
+    if (!section || !container) return;
+
+    // Clear existing content in case of re-init
+    container.innerHTML = '';
+
+    let width = section.offsetWidth;
+    let height = section.offsetHeight;
+
+    // Use prompt's specific colors
+    const colors = {
+        clinical: '#4A9EC9',
+        technical: '#4CAF50',
+        operational: '#D4A843'
+    };
+
+    const highlighted = [
+        "Python",
+        "RAG / AI Agents",
+        "PA Operations (Texas Medicaid)",
+        "RN License (Active, Texas)",
+        "Prompt Engineering",
+        "Clinical Workflow → Technical Requirements Translation"
+    ];
+
+    const nodes = [
+        // Clinical
+        { id: "RN License (Active, Texas)", group: "clinical" },
+        { id: "PA Operations (Texas Medicaid)", group: "clinical" },
+        { id: "Utilization Management", group: "clinical" },
+        { id: "CMS Regulations", group: "clinical" },
+        { id: "MCO Transitions & Eligibility", group: "clinical" },
+        { id: "Clinical Policy (TMPPM)", group: "clinical" },
+        // Technical
+        { id: "Python", group: "technical" },
+        { id: "Flask", group: "technical" },
+        { id: "PySimpleGUI", group: "technical" },
+        { id: "RPA (pyautogui, Selenium)", group: "technical" },
+        { id: "RAG / AI Agents", group: "technical" },
+        { id: "Microsoft Copilot Studio", group: "technical" },
+        { id: "Prompt Engineering", group: "technical" },
+        { id: "Data Visualization (Chart.js)", group: "technical" },
+        { id: "Algorithm Design", group: "technical" },
+        { id: "Excel Automation (openpyxl)", group: "technical" },
+        { id: "FHIR R4", group: "technical" },
+        { id: "X12 278 Transactions", group: "technical" },
+        { id: "HL7 Integration Concepts", group: "technical" },
+        // Operational
+        { id: "Clinical Workflow → Technical Requirements Translation", group: "operational" },
+        { id: "Process Design & Documentation", group: "operational" },
+        { id: "Performance Management (PIPs, QA)", group: "operational" },
+        { id: "Training Development", group: "operational" },
+        { id: "Root Cause Analysis & QA Auditing", group: "operational" },
+        { id: "Clinical Staff Onboarding & Enablement", group: "operational" },
+        { id: "Compliance-Aware Process Automation", group: "operational" }
+    ];
+
+    // Set radius and initial random positions spread across the full width and height
+    nodes.forEach(d => {
+        d.radius = highlighted.includes(d.id) ? 6 : 4;
+        d.x = Math.random() * width;
+        d.y = Math.random() * height;
+    });
+
+    const links = [
+        // Internal Clinical
+        { source: "RN License (Active, Texas)", target: "PA Operations (Texas Medicaid)" },
+        { source: "Utilization Management", target: "PA Operations (Texas Medicaid)" },
+        { source: "CMS Regulations", target: "MCO Transitions & Eligibility" },
+        { source: "Clinical Policy (TMPPM)", target: "CMS Regulations" },
+        { source: "MCO Transitions & Eligibility", target: "Utilization Management" },
+
+        // Internal Technical
+        { source: "Python", target: "Flask" },
+        { source: "Python", target: "RPA (pyautogui, Selenium)" },
+        { source: "Python", target: "Excel Automation (openpyxl)" },
+        { source: "Python", target: "Algorithm Design" },
+        { source: "RAG / AI Agents", target: "Prompt Engineering" },
+        { source: "RAG / AI Agents", target: "Microsoft Copilot Studio" },
+        { source: "Data Visualization (Chart.js)", target: "Flask" },
+        { source: "FHIR R4", target: "HL7 Integration Concepts" },
+        { source: "X12 278 Transactions", target: "HL7 Integration Concepts" },
+        { source: "PySimpleGUI", target: "Python" },
+
+        // Internal Operational
+        { source: "Clinical Workflow → Technical Requirements Translation", target: "Process Design & Documentation" },
+        { source: "Process Design & Documentation", target: "Performance Management (PIPs, QA)" },
+        { source: "Training Development", target: "Clinical Staff Onboarding & Enablement" },
+        { source: "Clinical Staff Onboarding & Enablement", target: "Root Cause Analysis & QA Auditing" },
+        { source: "Compliance-Aware Process Automation", target: "Process Design & Documentation" },
+
+        // Cross-Cluster user requested
+        { source: "PA Operations (Texas Medicaid)", target: "Python" },
+        { source: "Clinical Policy (TMPPM)", target: "RAG / AI Agents" },
+        { source: "CMS Regulations", target: "Clinical Workflow → Technical Requirements Translation" },
+        { source: "Utilization Management", target: "Process Design & Documentation" },
+        { source: "RN License (Active, Texas)", target: "Clinical Policy (TMPPM)" },
+        { source: "PA Operations (Texas Medicaid)", target: "Prompt Engineering" }
+    ];
+
+    const svg = d3.select(container)
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("viewBox", [0, 0, width, height]);
+
+    // Setup radial gradients for glow
+    const defs = svg.append("defs");
+    Object.entries(colors).forEach(([group, color]) => {
+        const grad = defs.append("radialGradient")
+            .attr("id", `glow-${group}`)
+            .attr("cx", "50%")
+            .attr("cy", "50%")
+            .attr("r", "50%");
+
+        // 8% opacity to transparent as requested
+        grad.append("stop")
+            .attr("offset", "0%")
+            .attr("stop-color", color)
+            .attr("stop-opacity", 0.08);
+
+        grad.append("stop")
+            .attr("offset", "100%")
+            .attr("stop-color", color)
+            .attr("stop-opacity", 0);
+    });
+
+    // Draw links
+    const link = svg.append("g")
+        .selectAll("line")
+        .data(links)
+        .join("line")
+        .attr("class", "graph-edge")
+        .attr("data-source", d => typeof d.source === 'string' ? d.source : d.source.id)
+        .attr("data-target", d => typeof d.target === 'string' ? d.target : d.target.id)
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", 0.5)
+        .attr("stroke-opacity", 0.3);
+
+    // Draw nodes
+    const nodeGroup = svg.append("g")
+        .selectAll("g")
+        .data(nodes)
+        .join("g")
+        .attr("class", "graph-node")
+        .attr("data-skill", d => d.id);
+
+    // Ambient Glow circle
+    nodeGroup.append("circle")
+        .attr("class", "node-glow")
+        .attr("r", d => d.radius * 3)
+        .attr("fill", d => `url(#glow-${d.group})`);
+
+    // Core solid circle
+    nodeGroup.append("circle")
+        .attr("class", "node-core")
+        .attr("r", d => d.radius)
+        .attr("fill", d => colors[d.group]);
+
+    const forceXTarget = (d) => {
+        if (d.group === 'clinical') return width * 0.2;
+        if (d.group === 'technical') return width * 0.5;
+        return width * 0.8;
+    };
+
+    const simulation = d3.forceSimulation(nodes)
+        .force("link", d3.forceLink(links).id(d => d.id).distance(100))
+        .force("charge", d3.forceManyBody().strength(-80))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("x", d3.forceX().x(forceXTarget).strength(0.06))
+        // Gentle Y force toward the center keeps them from floating totally offscreen but allows full height usage
+        .force("y", d3.forceY(height / 2).strength(0.06))
+        .force("collide", d3.forceCollide().radius(20))
+        .velocityDecay(0.6)
+        .alphaTarget(0.005); // Keep running gently indefinitely
+
+    simulation.on("tick", () => {
+        // Clamp bounds inside tick so nodes stay within the visible area
+        nodes.forEach(d => {
+            d.x = Math.max(40, Math.min(width - 40, d.x));
+            d.y = Math.max(40, Math.min(height - 40, d.y));
+        });
+
+        link
+            .attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+        nodeGroup.selectAll(".node-glow")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
+
+        nodeGroup.selectAll(".node-core")
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y);
+    });
+
+    // Handle Resize
+    window.addEventListener('resize', () => {
+        width = section.offsetWidth;
+        height = section.offsetHeight;
+
+        svg.attr("viewBox", [0, 0, width, height]);
+
+        simulation.force("center", d3.forceCenter(width / 2, height / 2));
+        simulation.force("x", d3.forceX().x(d => {
+            if (d.group === 'clinical') return width * 0.2;
+            if (d.group === 'technical') return width * 0.5;
+            return width * 0.8;
+        }).strength(0.06));
+
+        simulation.force("y", d3.forceY(height / 2).strength(0.06));
+
+        // Gentle kick to adjust to new bounds
+        simulation.alpha(0.01).restart();
+    });
+
+    // Handle Hover Interactivity from Pills
+    // Use matchMedia to ensure we only attach these listeners on devices with hover capability
+    const mql = window.matchMedia('(hover: hover) and (pointer: fine)');
+    if (mql.matches) {
+        const pills = document.querySelectorAll('.pill[data-skill]');
+
+        pills.forEach(pill => {
+            pill.addEventListener('mouseenter', () => {
+                const skillName = pill.getAttribute('data-skill');
+
+                // Activate container
+                container.classList.add('active');
+
+                // Dim all nodes and edges
+                svg.selectAll('.graph-node').classed('dimmed', true);
+                svg.selectAll('.graph-edge').classed('dimmed', true);
+
+                // Highlight target node
+                const targetNode = svg.select(`.graph-node[data-skill="${CSS.escape(skillName)}"]`);
+                if (!targetNode.empty()) {
+                    targetNode.classed('dimmed', false);
+                    targetNode.classed('highlighted', true);
+                }
+
+                const connectedSkillNames = [];
+
+                // Highlight connected edges and the neighbor nodes
+                svg.selectAll('.graph-edge').each(function (d) {
+                    const sourceId = d.source.id;
+                    const targetId = d.target.id;
+
+                    if (sourceId === skillName || targetId === skillName) {
+                        d3.select(this).classed('dimmed', false).classed('highlighted', true);
+
+                        // Also un-dim the neighbor node so it's visible at end of edge
+                        svg.select(`.graph-node[data-skill="${CSS.escape(sourceId)}"]`).classed('dimmed', false);
+                        svg.select(`.graph-node[data-skill="${CSS.escape(targetId)}"]`).classed('dimmed', false);
+
+                        if (sourceId !== skillName) connectedSkillNames.push(sourceId);
+                        if (targetId !== skillName) connectedSkillNames.push(targetId);
+                    }
+                });
+
+                // Add subtle pill glow to connected nodes
+                document.querySelectorAll('.pill[data-skill]').forEach(p => {
+                    if (connectedSkillNames.includes(p.getAttribute('data-skill'))) {
+                        p.classList.add('connected-pill');
+                    }
+                });
+            });
+
+            pill.addEventListener('mouseleave', () => {
+                // Deactivate container
+                container.classList.remove('active');
+
+                // Remove all interaction classes
+                svg.selectAll('.graph-node')
+                    .classed('dimmed', false)
+                    .classed('highlighted', false);
+
+                svg.selectAll('.graph-edge')
+                    .classed('dimmed', false)
+                    .classed('highlighted', false);
+
+                // Remove connected pill glows
+                document.querySelectorAll('.connected-pill').forEach(p => {
+                    p.classList.remove('connected-pill');
+                });
+            });
+        });
+    }
+}
+
 // Ensure init is called after content load
 if (typeof d3 !== 'undefined') {
     initSkillGraph();
+    initAmbientSkillsGraph();
 } else {
     // If D3 loads slightly after app.js
-    window.addEventListener('load', initSkillGraph);
+    window.addEventListener('load', () => {
+        initSkillGraph();
+        initAmbientSkillsGraph();
+    });
 }
