@@ -291,29 +291,40 @@
 
                         <div class="lead-metrics-row">
                             <div class="lead-metric-box">
-                                <span class="lead-metric-val">10-20 min &rarr; 60 sec</span>
+                                <span class="lead-metric-val">10–20 min &rarr; 60 sec</span>
                                 <span class="lead-metric-label">Policy search time</span>
                             </div>
                             <div class="lead-metric-box">
-                                <span class="lead-metric-val">900+ pages</span>
+                                <span class="lead-metric-val">1,800+ pages</span>
                                 <span class="lead-metric-label">Indexed by RAG agent</span>
                             </div>
                         </div>
 
+                        <p class="project-problem"><strong>Problem:</strong> The Texas Medicaid Provider Procedures
+                            Manual is 900+ pages of dense regulatory and clinical policy. PA clinicians routinely spend
+                            10–20 minutes searching for a single policy clarification, and still risk missing relevant
+                            sections.</p>
+
                         <div class="project-expandable">
                             <div class="project-details">
-                                <p><strong>Problem:</strong> The Texas Medicaid Provider Procedures Manual is 900+ pages
-                                    of dense regulatory and clinical policy. PA clinicians and supervisors routinely
-                                    spend 10–20 minutes searching for a single policy clarification, and still risk
-                                    misinterpreting or missing relevant sections.</p>
-                                <p><strong>What I built:</strong> A Microsoft Copilot agent using retrieval-augmented
-                                    generation (RAG) that indexes the full TMPPM corpus and returns structured,
-                                    citation-backed answers. Every response includes a confidence score calibrated to a
-                                    defined rubric, source citations with document title, section number, and page
-                                    number, applicable conditions and exceptions, risk flags for edge cases, and related
-                                    manual sections. The agent distinguishes between 'must,' 'may,' and 'should' per
-                                    manual language, escalates when confidence drops below threshold, and explicitly
-                                    flags when a question falls outside TMPPM scope.</p>
+                                <hr class="project-divider">
+                                <p><strong>What I built:</strong> A Microsoft Copilot RAG agent that indexes the full
+                                    TMPPM corpus and returns structured, citation-backed answers.</p>
+                                <div style="margin: 0.75rem 0;">
+                                    <span class="feature-chip">Confidence scores</span>
+                                    <span class="feature-chip">Source &amp; page citations</span>
+                                    <span class="feature-chip">Risk flags</span>
+                                    <span class="feature-chip">Must / May / Should parsing</span>
+                                    <span class="feature-chip">Scope detection</span>
+                                </div>
+                                <p>It escalates when confidence drops below threshold and explicitly flags when a
+                                    question falls outside scope.</p>
+
+                                <div class="project-callout">
+                                    <p><strong>Why it matters:</strong> This is the same class of problem healthtech
+                                        companies solve when digitizing payer clinical policies for automated PA
+                                        decisioning. I built it from the operations floor, not an engineering team.</p>
+                                </div>
                             </div>
                             <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
                         </div>
@@ -331,63 +342,39 @@
 
                     <!-- Project Card 2 -->
                     <article class="project-card">
-                        <span class="project-category">Process Automation</span>
-                        <h3 class="project-title">PA Processing Automation GUI</h3>
-                        <p class="project-oneliner">Desktop GUI that automated repetitive PA data entry and 5x'd
-                            authorization processing throughput.</p>
-
-                        <div class="card-metric-callout">
-                            <span class="card-metric-val">5x throughput</span>
-                            <span class="card-metric-label">5/hr to 25/hr</span>
-                        </div>
-
-                        <div class="project-expandable">
-                            <div class="project-details">
-                                <p><strong>Problem:</strong> Processing prior authorizations required repetitive manual
-                                    steps: calculating service units, typing clinician comments, clicking through system
-                                    screens. At ~12 minutes per case, the ceiling was roughly 5 authorizations per hour.
-                                </p>
-                                <p><strong>What I built:</strong> A Python desktop application using PySimpleGUI that
-                                    applies RPA principles to automate the PA processing workflow. The tool
-                                    auto-calculates service units, generates standardized clinician comments from
-                                    structured input, then executes the full sequence of system interactions through
-                                    automated clicks and keystrokes.</p>
-                            </div>
-                            <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
-                        </div>
-
-                        <div class="project-meta">
-                            <span>Python</span>
-                            <span>PySimpleGUI</span>
-                            <span>RPA</span>
-                            <span>pyautogui</span>
-                        </div>
-                    </article>
-
-                    <!-- Project Card 3 -->
-                    <article class="project-card">
                         <span class="project-category">Full-Stack / Algorithm</span>
                         <h3 class="project-title">Operations Dashboard + Planner</h3>
                         <p class="project-oneliner">Flask dashboard with real-time inventory visibility and a greedy
-                            algorithm that optimizes daily assignments.</p>
+                            algorithm that optimizes daily staffing assignments.</p>
 
                         <div class="card-metric-callout">
                             <span class="card-metric-val">15-20 min saved</span>
                             <span class="card-metric-label">Daily planning per supervisor</span>
                         </div>
 
+                        <p class="project-problem"><strong>Problem:</strong> Supervisors had no real-time visibility
+                            into authorization queue status. Daily staffing assignments were done by gut feel, leading
+                            to imbalanced workloads and missed SLA deadlines.</p>
+
                         <div class="project-expandable">
                             <div class="project-details">
-                                <p><strong>Problem:</strong> Supervisors had no real-time visibility into authorization
-                                    queue status. Daily work assignment was done by gut feel &mdash; eyeballing
-                                    inventory and assigning staff without structured methodology. This led to imbalanced
-                                    workloads and missed SLA deadlines.</p>
-                                <p><strong>What I built:</strong> A Flask web app with two modules. The dashboard pulls
-                                    live inventory counts and displays them in bar charts grouped by operational area.
-                                    The daily plan generator takes current inventory, available staff, shift hours, and
-                                    area qualifications as inputs, then outputs optimized assignments using a greedy
-                                    algorithm that prioritizes: (1) inventory due today, (2) areas only workable by few
-                                    qualified staff, (3) highest remaining volume.</p>
+                                <hr class="project-divider">
+                                <p><strong>What I built:</strong> A Flask web app with two modules:</p>
+                                <div style="margin: 0.75rem 0;">
+                                    <span class="feature-chip">Live inventory dashboard</span>
+                                    <span class="feature-chip">Greedy allocation algorithm</span>
+                                    <span class="feature-chip">Staff qualification matrix</span>
+                                </div>
+                                <p>The planner generates optimized assignments by prioritizing inventory due today,
+                                    areas with few qualified staff, and highest remaining volume. It makes allocation
+                                    decisions, not suggestions.</p>
+
+                                <div class="project-callout">
+                                    <p><strong>Why it matters:</strong> This is operational intelligence tooling &mdash;
+                                        data-driven resource optimization built by someone who actually does the work,
+                                        so the design reflects how supervisors think, not how engineers assume they do.
+                                    </p>
+                                </div>
                             </div>
                             <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
                         </div>
@@ -400,12 +387,58 @@
                         </div>
                     </article>
 
+                    <!-- Project Card 3 -->
+                    <article class="project-card">
+                        <span class="project-category">Process Automation</span>
+                        <h3 class="project-title">PA Processing Automation GUI</h3>
+                        <p class="project-oneliner">Desktop GUI that automated repetitive PA data entry and 5x'd
+                            authorization processing throughput.</p>
+
+                        <div class="card-metric-callout">
+                            <span class="card-metric-val">5x throughput</span>
+                            <span class="card-metric-label">5/hr &rarr; 25/hr</span>
+                        </div>
+
+                        <p class="project-problem"><strong>Problem:</strong> Processing prior authorizations required
+                            repetitive manual steps &mdash; unit calculations, clinician comments, system navigation. At
+                            ~12 minutes per case, the ceiling was roughly 5 authorizations per hour.</p>
+
+                        <div class="project-expandable">
+                            <div class="project-details">
+                                <hr class="project-divider">
+                                <p><strong>What I built:</strong> A Python desktop application using PySimpleGUI that
+                                    controls the processing workflow via automated system interactions. Designed as a
+                                    structured input interface because the goal wasn't just speed &mdash; it was
+                                    auditable consistency.</p>
+                                <div style="margin: 0.75rem 0;">
+                                    <span class="feature-chip">Auto-calculation of units</span>
+                                    <span class="feature-chip">Standardized comment generation</span>
+                                    <span class="feature-chip">Automated keystroke orchestration</span>
+                                </div>
+                                <div class="project-callout">
+                                    <p><strong>Why it matters:</strong> Built this as an individual contributor, before
+                                        any leadership title. The instinct to see a broken workflow and build the fix
+                                        &mdash; rather than flag it and wait &mdash; is the same instinct that drives
+                                        implementation work.</p>
+                                </div>
+                            </div>
+                            <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
+                        </div>
+
+                        <div class="project-meta">
+                            <span>Python</span>
+                            <span>PySimpleGUI</span>
+                            <span>RPA</span>
+                            <span>pyautogui</span>
+                        </div>
+                    </article>
+
                     <!-- Project Card 4 -->
                     <article class="project-card">
                         <span class="project-category">Clinical Automation</span>
                         <h3 class="project-title">Selenium Documentation Automation</h3>
-                        <p class="project-oneliner">Python scripts using Selenium WebDriver that automated the full
-                            documentation submission workflow in the home health EMR.</p>
+                        <p class="project-oneliner">Headless automation scripts that eliminated 90% of home health
+                            documentation time.</p>
 
                         <div class="card-metric-callout" style="margin-bottom: var(--space-sm);">
                             <span class="card-metric-val">11x faster</span>
@@ -416,18 +449,28 @@
                             <span class="card-metric-label">Documentation time</span>
                         </div>
 
+                        <p class="project-problem"><strong>Problem:</strong> Home health clinical documentation took ~45
+                            minutes per encounter &mdash; mostly navigating EMR forms, not clinical thinking.</p>
+
                         <div class="project-expandable">
                             <div class="project-details">
-                                <p><strong>Problem:</strong> Home health clinical documentation required repetitive
-                                    manual entry across multiple EMR screens. Each patient encounter took approximately
-                                    45 minutes of documentation work &mdash; the majority of which was navigating forms,
-                                    not clinical thinking.</p>
-                                <p><strong>What I built:</strong> Python scripts using Selenium WebDriver that automated
-                                    the full documentation submission workflow in the home health EMR. The tool
-                                    navigated screens, populated structured fields, and submitted records &mdash;
-                                    reducing per-encounter documentation time from 45 minutes to 4 minutes. This was the
-                                    earliest proof of a pattern that now defines the career: see a broken clinical
-                                    workflow, build the tool to fix it.</p>
+                                <hr class="project-divider">
+                                <p><strong>What I built:</strong> Headless Python automation using Selenium WebDriver.
+                                </p>
+                                <div style="margin: 0.75rem 0;">
+                                    <span class="feature-chip">Maps EMR workflow screen-by-screen</span>
+                                    <span class="feature-chip">Branching script logic</span>
+                                    <span class="feature-chip">Static &amp; dynamic field handling</span>
+                                </div>
+                                <p>The design challenge wasn't Selenium &mdash; it was understanding the clinical
+                                    documentation logic well enough to automate it without introducing errors into the
+                                    patient record.</p>
+
+                                <div class="project-callout">
+                                    <p><strong>Why it matters:</strong> The first thing I ever automated. A home health
+                                        nurse building Python scripts to reclaim clinical time from EMR busywork. Every
+                                        project since follows the same pattern.</p>
+                                </div>
                             </div>
                             <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
                         </div>
@@ -439,63 +482,6 @@
                             <span>Home Health</span>
                         </div>
                     </article>
-                </div>
-
-                <!-- Earlier Work Section -->
-                <div class="earlier-work-container animate-on-scroll delay-3">
-                    <div class="section-header">
-                        <h3 class="earlier-work-heading">Earlier Work Archive</h3>
-                        <div class="separator"></div>
-                    </div>
-                    <div class="earlier-work-grid">
-                        <article class="project-card earlier-card">
-                            <div class="earlier-card-header">
-                                <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path
-                                        d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
-                                    </path>
-                                </svg>
-                                <div class="earlier-links">
-                                    <!-- Could add GitHub link here if available -->
-                                </div>
-                            </div>
-                            <h4 class="project-title">Home Health Patient Dashboard</h4>
-                            <p class="project-oneliner">Web-based dashboard tailored to individual home health patient
-                                cases. Tracked seizure frequency, medication administration, feeding schedules, and
-                                vital sign trends &mdash; giving clinical teams a consolidated view that replaced manual
-                                chart reviews across multiple systems.</p>
-                            <div class="project-meta">
-                                <span>HTML/CSS/JS</span>
-                                <span>Python</span>
-                                <span>Django</span>
-                                <span>Patient Tracking</span>
-                            </div>
-                        </article>
-
-                        <article class="project-card earlier-card">
-                            <div class="earlier-card-header">
-                                <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <path
-                                        d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <h4 class="project-title">Inventory Automation Bot</h4>
-                            <p class="project-oneliner">Python script that automated manual inventory counting across
-                                group areas, formatted results into Excel reports, and emailed them on a recurring
-                                schedule. Saved supervisors ~1 hour per day.</p>
-                            <div class="project-meta">
-                                <span>Python</span>
-                                <span>openpyxl</span>
-                                <span>smtplib</span>
-                                <span>Automation</span>
-                            </div>
-                        </article>
-                    </div>
                 </div>
             </div>
         </section>
@@ -533,29 +519,25 @@
                         <h3 class="skill-group-header">Technical</h3>
                         <div class="pill-cluster">
                             <span class="pill pill-accent pill-green" data-skill="Python">Python</span>
+                            <span class="pill pill-accent pill-green" data-skill="RAG / AI Agents">RAG / AI
+                                Agents</span>
+                            <span class="pill pill-accent pill-green" data-skill="Prompt Engineering">Prompt
+                                Engineering</span>
                             <span class="pill pill-std pill-green" data-skill="Flask">Flask</span>
                             <span class="pill pill-std pill-green" data-skill="PySimpleGUI">PySimpleGUI</span>
                             <span class="pill pill-std pill-green" data-skill="RPA (pyautogui, Selenium)">RPA
                                 (pyautogui, Selenium)</span>
-                            <span class="pill pill-accent pill-green" data-skill="RAG / AI Agents">RAG / AI
-                                Agents</span>
                             <span class="pill pill-std pill-green" data-skill="Microsoft Copilot Studio">Microsoft
                                 Copilot Studio</span>
-                            <span class="pill pill-accent pill-green" data-skill="Prompt Engineering">Prompt
-                                Engineering</span>
                             <span class="pill pill-std pill-green" data-skill="Data Visualization (Chart.js)">Data
                                 Visualization (Chart.js)</span>
                             <span class="pill pill-std pill-green" data-skill="Algorithm Design">Algorithm Design</span>
                             <span class="pill pill-std pill-green" data-skill="Excel Automation (openpyxl)">Excel
                                 Automation (openpyxl)</span>
-                            <!-- OWNER: confirm comfort level before publishing -->
-                            <span class="pill pill-std pill-green" data-skill="FHIR R4">FHIR R4</span>
-                            <!-- OWNER: confirm comfort level before publishing -->
-                            <span class="pill pill-std pill-green" data-skill="X12 278 Transactions">X12 278
-                                Transactions</span>
-                            <!-- OWNER: confirm comfort level before publishing -->
-                            <span class="pill pill-std pill-green" data-skill="HL7 Integration Concepts">HL7 Integration
-                                Concepts</span>
+                            <span class="pill pill-std pill-green" data-skill="Power Automate">Power Automate</span>
+                            <span class="pill pill-std pill-green"
+                                data-skill="Compliance-Aware Process Automation">Compliance-Aware Process
+                                Automation</span>
                         </div>
                     </div>
 
@@ -580,8 +562,11 @@
                                 data-skill="Clinical Staff Onboarding &amp; Enablement">Clinical Staff Onboarding &amp;
                                 Enablement</span>
                             <span class="pill pill-std pill-amber"
-                                data-skill="Compliance-Aware Process Automation">Compliance-Aware Process
-                                Automation</span>
+                                data-skill="SLA Management &amp; Capacity Planning">SLA Management &amp; Capacity
+                                Planning</span>
+                            <span class="pill pill-std pill-amber"
+                                data-skill="Cross-Functional Stakeholder Coordination">Cross-Functional Stakeholder
+                                Coordination</span>
                         </div>
                     </div>
 
@@ -593,8 +578,13 @@
         <section id="contact" class="section contact">
             <div class="container contact-container animate-on-scroll">
                 <h2 class="contact-title">Let's talk about where clinical meets technical.</h2>
-                <p class="contact-subtitle">I'm pursuing roles where domain expertise in healthcare operations and
-                    hands-on technical capability aren't separate job descriptions; they're the same person.</p>
+                <p class="contact-subtitle"
+                    style="margin-bottom: var(--space-xl); max-width: 800px; margin-left: auto; margin-right: auto; text-align: center; font-size: 1.05rem; line-height: 1.7;">
+                    I'm looking for roles at companies building AI-powered clinical decision tools &mdash; where
+                    implementation, configuration, or product operations require someone who's lived both the payer
+                    operations side and the technical build side. If your team needs a person who can translate clinical
+                    policy into executable workflows <em>and</em> build the tools to automate them, that's the
+                    conversation I want to have.</p>
 
                 <div class="contact-links-row ">
                     <!-- Email -->
@@ -622,8 +612,6 @@
                 </div>
 
                 <p class="contact-location">Texas (Remote)</p>
-                <p class="contact-signal">Targeting roles in healthcare AI, clinical implementation, and operations
-                    technology.</p>
             </div>
         </section>
     </main>

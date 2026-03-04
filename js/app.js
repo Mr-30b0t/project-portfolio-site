@@ -438,9 +438,8 @@ function initAmbientSkillsGraph() {
         { id: "Data Visualization (Chart.js)", group: "technical" },
         { id: "Algorithm Design", group: "technical" },
         { id: "Excel Automation (openpyxl)", group: "technical" },
-        { id: "FHIR R4", group: "technical" },
-        { id: "X12 278 Transactions", group: "technical" },
-        { id: "HL7 Integration Concepts", group: "technical" },
+        { id: "Power Automate", group: "technical" },
+        { id: "Compliance-Aware Process Automation", group: "technical" },
         // Operational
         { id: "Clinical Workflow → Technical Requirements Translation", group: "operational" },
         { id: "Process Design & Documentation", group: "operational" },
@@ -448,7 +447,8 @@ function initAmbientSkillsGraph() {
         { id: "Training Development", group: "operational" },
         { id: "Root Cause Analysis & QA Auditing", group: "operational" },
         { id: "Clinical Staff Onboarding & Enablement", group: "operational" },
-        { id: "Compliance-Aware Process Automation", group: "operational" }
+        { id: "SLA Management & Capacity Planning", group: "operational" },
+        { id: "Cross-Functional Stakeholder Coordination", group: "operational" }
     ];
 
     // Set radius and initial random positions spread across the full width and height
@@ -474,16 +474,19 @@ function initAmbientSkillsGraph() {
         { source: "RAG / AI Agents", target: "Prompt Engineering" },
         { source: "RAG / AI Agents", target: "Microsoft Copilot Studio" },
         { source: "Data Visualization (Chart.js)", target: "Flask" },
-        { source: "FHIR R4", target: "HL7 Integration Concepts" },
-        { source: "X12 278 Transactions", target: "HL7 Integration Concepts" },
         { source: "PySimpleGUI", target: "Python" },
+        { source: "Power Automate", target: "Microsoft Copilot Studio" },
+        { source: "Power Automate", target: "Compliance-Aware Process Automation" },
+        { source: "Compliance-Aware Process Automation", target: "RPA (pyautogui, Selenium)" },
 
         // Internal Operational
         { source: "Clinical Workflow → Technical Requirements Translation", target: "Process Design & Documentation" },
         { source: "Process Design & Documentation", target: "Performance Management (PIPs, QA)" },
         { source: "Training Development", target: "Clinical Staff Onboarding & Enablement" },
         { source: "Clinical Staff Onboarding & Enablement", target: "Root Cause Analysis & QA Auditing" },
-        { source: "Compliance-Aware Process Automation", target: "Process Design & Documentation" },
+        { source: "SLA Management & Capacity Planning", target: "Process Design & Documentation" },
+        { source: "Cross-Functional Stakeholder Coordination", target: "SLA Management & Capacity Planning" },
+        { source: "Cross-Functional Stakeholder Coordination", target: "Training Development" },
 
         // Cross-Cluster user requested
         { source: "PA Operations (Texas Medicaid)", target: "Python" },
@@ -491,7 +494,26 @@ function initAmbientSkillsGraph() {
         { source: "CMS Regulations", target: "Clinical Workflow → Technical Requirements Translation" },
         { source: "Utilization Management", target: "Process Design & Documentation" },
         { source: "RN License (Active, Texas)", target: "Clinical Policy (TMPPM)" },
-        { source: "PA Operations (Texas Medicaid)", target: "Prompt Engineering" }
+        { source: "PA Operations (Texas Medicaid)", target: "Prompt Engineering" },
+        { source: "Compliance-Aware Process Automation", target: "Process Design & Documentation" },
+
+        // Additional cross-cluster bridges for better interconnection
+        { source: "MCO Transitions & Eligibility", target: "Cross-Functional Stakeholder Coordination" },
+        { source: "CMS Regulations", target: "Compliance-Aware Process Automation" },
+        { source: "PA Operations (Texas Medicaid)", target: "SLA Management & Capacity Planning" },
+        { source: "Clinical Policy (TMPPM)", target: "Process Design & Documentation" },
+        { source: "Utilization Management", target: "Data Visualization (Chart.js)" },
+        { source: "RN License (Active, Texas)", target: "Training Development" },
+        { source: "Python", target: "Clinical Workflow → Technical Requirements Translation" },
+        { source: "Flask", target: "SLA Management & Capacity Planning" },
+        { source: "Algorithm Design", target: "Process Design & Documentation" },
+        { source: "Data Visualization (Chart.js)", target: "Performance Management (PIPs, QA)" },
+        { source: "Microsoft Copilot Studio", target: "Clinical Workflow → Technical Requirements Translation" },
+        { source: "Prompt Engineering", target: "Clinical Policy (TMPPM)" },
+        { source: "RPA (pyautogui, Selenium)", target: "Process Design & Documentation" },
+        { source: "Power Automate", target: "Cross-Functional Stakeholder Coordination" },
+        { source: "Clinical Staff Onboarding & Enablement", target: "PA Operations (Texas Medicaid)" },
+        { source: "Root Cause Analysis & QA Auditing", target: "Utilization Management" }
     ];
 
     const svg = d3.select(container)

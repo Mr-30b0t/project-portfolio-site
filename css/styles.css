@@ -843,6 +843,7 @@ a {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: var(--space-lg);
+    align-items: start;
 }
 
 .project-featured {
@@ -945,6 +946,43 @@ a {
 .card-metric-label {
     font-size: 0.85rem;
     color: var(--clr-text-muted);
+}
+
+.project-problem {
+    color: var(--clr-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Expanded Content Typography & Hierarchy */
+.project-divider {
+    height: 1px;
+    background: var(--clr-border);
+    opacity: 0.3;
+    margin: var(--space-md) 0;
+}
+
+.feature-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 2px 4px 2px 0;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--clr-text);
+    white-space: nowrap;
+}
+
+.project-callout {
+    position: relative;
+    padding: var(--space-md);
+    margin-top: var(--space-md);
+    background: rgba(56, 189, 248, 0.02);
+    border-left: 2px solid var(--node-clinical);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
 /* Expandable Content */
