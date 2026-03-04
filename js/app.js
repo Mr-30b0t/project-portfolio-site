@@ -451,11 +451,51 @@ function initAmbientSkillsGraph() {
         { id: "Cross-Functional Stakeholder Coordination", group: "operational" }
     ];
 
-    // Set radius and initial random positions spread across the full width and height
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+    const laneCenterByGroup = (group) => {
+        if (group === 'clinical') return 0.18;
+        if (group === 'technical') return 0.5;
+        return 0.82;
+    };
+
+    function updateNodeAnchorTargets() {
+        const sectionRect = section.getBoundingClientRect();
+        const pillAnchors = new Map();
+
+        section.querySelectorAll('.pill[data-skill]').forEach(pill => {
+            const skillName = pill.getAttribute('data-skill');
+            const rect = pill.getBoundingClientRect();
+
+            pillAnchors.set(skillName, {
+                x: (rect.left + (rect.width / 2)) - sectionRect.left,
+                y: (rect.top + (rect.height / 2)) - sectionRect.top
+            });
+        });
+
+        nodes.forEach(d => {
+            const anchor = pillAnchors.get(d.id);
+            if (anchor) {
+                d.targetXNorm = clamp(anchor.x / width, 0.06, 0.94);
+                d.targetYNorm = clamp(anchor.y / height, 0.08, 0.92);
+                return;
+            }
+
+            // Fallback if a node has no matching pill.
+            d.targetXNorm = laneCenterByGroup(d.group);
+            d.targetYNorm = 0.5;
+        });
+    }
+
     nodes.forEach(d => {
-        d.radius = highlighted.includes(d.id) ? 6 : 4;
-        d.x = Math.random() * width;
-        d.y = Math.random() * height;
+        d.radius = highlighted.includes(d.id) ? 7 : 5;
+    });
+
+    updateNodeAnchorTargets();
+
+    nodes.forEach(d => {
+        d.x = (d.targetXNorm * width) + ((Math.random() - 0.5) * 30);
+        d.y = (d.targetYNorm * height) + ((Math.random() - 0.5) * 30);
     });
 
     const links = [
@@ -531,11 +571,11 @@ function initAmbientSkillsGraph() {
             .attr("cy", "50%")
             .attr("r", "50%");
 
-        // 8% opacity to transparent as requested
+        // 14% opacity to transparent for better visibility
         grad.append("stop")
             .attr("offset", "0%")
             .attr("stop-color", color)
-            .attr("stop-opacity", 0.08);
+            .attr("stop-opacity", 0.14);
 
         grad.append("stop")
             .attr("offset", "100%")
@@ -552,8 +592,8 @@ function initAmbientSkillsGraph() {
         .attr("data-source", d => typeof d.source === 'string' ? d.source : d.source.id)
         .attr("data-target", d => typeof d.target === 'string' ? d.target : d.target.id)
         .attr("stroke", "#ffffff")
-        .attr("stroke-width", 0.5)
-        .attr("stroke-opacity", 0.3);
+        .attr("stroke-width", 0.7)
+        .attr("stroke-opacity", 0.36);
 
     // Draw nodes
     const nodeGroup = svg.append("g")
@@ -566,37 +606,40 @@ function initAmbientSkillsGraph() {
     // Ambient Glow circle
     nodeGroup.append("circle")
         .attr("class", "node-glow")
-        .attr("r", d => d.radius * 3)
+        .attr("r", d => d.radius * 3.4)
         .attr("fill", d => `url(#glow-${d.group})`);
 
     // Core solid circle
     nodeGroup.append("circle")
         .attr("class", "node-core")
         .attr("r", d => d.radius)
-        .attr("fill", d => colors[d.group]);
+        .attr("fill", d => colors[d.group])
+        .attr("stroke", "rgba(255,255,255,0.5)")
+        .attr("stroke-width", 0.8);
 
     const forceXTarget = (d) => {
-        if (d.group === 'clinical') return width * 0.2;
-        if (d.group === 'technical') return width * 0.5;
-        return width * 0.8;
+        return d.targetXNorm * width;
+    };
+
+    const forceYTarget = (d) => {
+        return d.targetYNorm * height;
     };
 
     const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id(d => d.id).distance(100))
-        .force("charge", d3.forceManyBody().strength(-80))
+        .force("link", d3.forceLink(links).id(d => d.id).distance(76).strength(0.18))
+        .force("charge", d3.forceManyBody().strength(-90))
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("x", d3.forceX().x(forceXTarget).strength(0.06))
-        // Gentle Y force toward the center keeps them from floating totally offscreen but allows full height usage
-        .force("y", d3.forceY(height / 2).strength(0.06))
-        .force("collide", d3.forceCollide().radius(20))
+        .force("x", d3.forceX().x(forceXTarget).strength(0.18))
+        .force("y", d3.forceY().y(forceYTarget).strength(0.2))
+        .force("collide", d3.forceCollide().radius(d => (d.radius * 2.4) + 6).iterations(2))
         .velocityDecay(0.6)
-        .alphaTarget(0.005); // Keep running gently indefinitely
+        .alphaTarget(0.003);
 
     simulation.on("tick", () => {
         // Clamp bounds inside tick so nodes stay within the visible area
         nodes.forEach(d => {
-            d.x = Math.max(40, Math.min(width - 40, d.x));
-            d.y = Math.max(40, Math.min(height - 40, d.y));
+            d.x = Math.max(28, Math.min(width - 28, d.x));
+            d.y = Math.max(28, Math.min(height - 28, d.y));
         });
 
         link
@@ -621,18 +664,31 @@ function initAmbientSkillsGraph() {
 
         svg.attr("viewBox", [0, 0, width, height]);
 
-        simulation.force("center", d3.forceCenter(width / 2, height / 2));
-        simulation.force("x", d3.forceX().x(d => {
-            if (d.group === 'clinical') return width * 0.2;
-            if (d.group === 'technical') return width * 0.5;
-            return width * 0.8;
-        }).strength(0.06));
+        updateNodeAnchorTargets();
 
-        simulation.force("y", d3.forceY(height / 2).strength(0.06));
+        simulation.force("center", d3.forceCenter(width / 2, height / 2));
+        simulation.force("x", d3.forceX().x(d => d.targetXNorm * width).strength(0.18));
+        simulation.force("y", d3.forceY().y(d => d.targetYNorm * height).strength(0.2));
 
         // Gentle kick to adjust to new bounds
-        simulation.alpha(0.01).restart();
+        simulation.alpha(0.15).restart();
     });
+
+    // One post-layout pass to avoid stale pill rects on first paint.
+    window.requestAnimationFrame(() => {
+        updateNodeAnchorTargets();
+        simulation.alpha(0.12).restart();
+    });
+
+    // Re-anchor once fonts are ready in case pill widths/positions shift post-render.
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            updateNodeAnchorTargets();
+            simulation.alpha(0.1).restart();
+        }).catch(() => {
+            // No-op: fallback anchors are already applied above.
+        });
+    }
 
     // Handle Hover Interactivity from Pills
     // Use matchMedia to ensure we only attach these listeners on devices with hover capability

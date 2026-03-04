@@ -1189,7 +1189,7 @@ a {
     width: 100%;
     height: 100%;
     z-index: 0;
-    opacity: 0.17;
+    opacity: 0.28;
     pointer-events: none;
     overflow: hidden;
 }
@@ -1206,14 +1206,14 @@ a {
 }
 
 .skills-graph-container.active {
-    opacity: 0.4;
+    opacity: 0.55;
 }
 
 /* Ensure edges have base styles to be overridden by classes */
 .graph-edge {
     stroke: #ffffff;
-    stroke-width: 0.5px;
-    stroke-opacity: 0.3;
+    stroke-width: 0.7px;
+    stroke-opacity: 0.36;
     transition: stroke-opacity 0.2s ease, stroke-width 0.2s ease;
 }
 
@@ -1229,7 +1229,8 @@ a {
 }
 
 .graph-node .node-core {
-    transition: r 0.2s ease;
+    transition: r 0.2s ease, opacity 0.2s ease;
+    opacity: 0.95;
 }
 
 /* Dim states */
@@ -1245,6 +1246,7 @@ a {
     /* Force larger radius through CSS attribute styling fallback or style */
     /* Since SVG 'r' isn't fully animatable in all browsers via CSS, we rely on scaling */
     transform-origin: center;
+    transform-box: fill-box;
     transform: scale(2.5);
     /* For glow opacity boost, standard opacity */
     opacity: 0.6;
@@ -1252,6 +1254,7 @@ a {
 
 .graph-node.highlighted .node-core {
     transform-origin: center;
+    transform-box: fill-box;
     transform: scale(1.5);
 }
 
