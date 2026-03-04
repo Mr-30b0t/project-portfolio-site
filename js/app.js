@@ -120,41 +120,48 @@ function initSkillGraph() {
             { id: "Training Dev", group: "operational", baseRadius: 4 }
         ],
         links: [
+            // --- INTERNAL EDGES (Max 2-3 per cluster) ---
+
             // Clinical internal
-            { source: "PA Operations", target: "Clinical Policy", value: 1 },
+            { source: "RN License", target: "PA Operations", value: 1 },
             { source: "PA Operations", target: "MCO Workflows", value: 1 },
-            { source: "UM Review", target: "CMS Regs", value: 1 },
-            { source: "RN License", target: "UM Review", value: 1 },
+            { source: "Clinical Policy", target: "CMS Regs", value: 1 },
 
             // Technical internal
+            { source: "Python", target: "RAG / AI Agents", value: 1 },
             { source: "Python", target: "RPA / Automation", value: 1 },
-            { source: "Python", target: "Flask", value: 1 },
-            { source: "Python", target: "Data Viz", value: 1 },
-            { source: "RAG / AI Agents", target: "Prompt Eng", value: 1 },
-            { source: "RAG / AI Agents", target: "Python", value: 1 },
+            { source: "Flask", target: "Data Viz", value: 1 },
 
             // Operational internal
-            { source: "Team Supervision", target: "Process Design", value: 1 },
             { source: "Process Design", target: "Workflow Translation", value: 1 },
             { source: "Team Supervision", target: "SLA Management", value: 1 },
-            { source: "Training Dev", target: "Process Design", value: 1 },
 
-            // NEW: Cross-cluster connections to eliminate orphans
-            { source: "RN License", target: "PA Operations", value: 1 },
-            { source: "RN License", target: "Clinical Policy", value: 1 },
-            { source: "CMS Regs", target: "PA Operations", value: 1 },
-            { source: "CMS Regs", target: "Workflow Translation", value: 1 },
-            { source: "UM Review", target: "PA Operations", value: 1 },
-            { source: "UM Review", target: "RAG / AI Agents", value: 1 },
+            // --- CROSS-CLUSTER EDGES (The main focus ~60% ratio) ---
 
-            // CROSS-DOMAIN EDGES (The secret sauce)
+            // Clinical <-> Technical
             { source: "PA Operations", target: "Python", value: 2 },
+            { source: "PA Operations", target: "RAG / AI Agents", value: 2 },
+            { source: "PA Operations", target: "RPA / Automation", value: 2 },
             { source: "Clinical Policy", target: "RAG / AI Agents", value: 2 },
-            { source: "Workflow Translation", target: "RPA / Automation", value: 2 },
-            { source: "Process Design", target: "RPA / Automation", value: 1 },
-            { source: "PA Operations", target: "Team Supervision", value: 1 },
-            { source: "MCO Workflows", target: "Data Viz", value: 1 },
-            { source: "Workflow Translation", target: "Python", value: 1 }
+            { source: "Clinical Policy", target: "Prompt Eng", value: 1 },
+            { source: "RN License", target: "Data Viz", value: 1 },
+            { source: "UM Review", target: "Python", value: 1 },
+            { source: "MCO Workflows", target: "Flask", value: 1 },
+
+            // Technical <-> Operations
+            { source: "Python", target: "Process Design", value: 2 },
+            { source: "Python", target: "SLA Management", value: 1 },
+            { source: "RAG / AI Agents", target: "Training Dev", value: 1 },
+            { source: "RPA / Automation", target: "Workflow Translation", value: 2 },
+            { source: "Data Viz", target: "Team Supervision", value: 1 },
+            { source: "Flask", target: "SLA Management", value: 1 },
+
+            // Clinical <-> Operations
+            { source: "PA Operations", target: "Team Supervision", value: 2 },
+            { source: "PA Operations", target: "Workflow Translation", value: 2 },
+            { source: "CMS Regs", target: "Process Design", value: 1 },
+            { source: "Clinical Policy", target: "Training Dev", value: 1 },
+            { source: "UM Review", target: "Workflow Translation", value: 1 }
         ]
     };
 
@@ -179,21 +186,21 @@ function initSkillGraph() {
 
     // Add CSS definitions for animations and text shadow
     svg.append("style").text(`
-        @keyframes pulseGlow {
+        @keyframes pulseGlowHero {
             0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,255,255,0.05)); }
             50% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(255,255,255,0.15)); }
             100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,255,255,0.05)); }
         }
-        .node-core {
-            animation: pulseGlow 4s infinite ease-in-out;
+        .hero-node-core {
+            animation: pulseGlowHero 4s infinite ease-in-out;
             transform-origin: center;
         }
-        .node-label {
+        .hero-node-label {
             text-shadow: 0 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5);
             pointer-events: none;
             transition: all 0.3s ease;
         }
-        .edge-line {
+        .hero-edge-line {
             transition: stroke-opacity 0.3s ease;
         }
     `);
@@ -204,7 +211,7 @@ function initSkillGraph() {
     // Add soft radial gradients for each color group
     Object.keys(colors).forEach(group => {
         const radGrad = defs.append("radialGradient")
-            .attr("id", `glow-${group}`)
+            .attr("id", `hero-glow-${group}`)
             .attr("cx", "50%")
             .attr("cy", "50%")
             .attr("r", "50%");
@@ -215,8 +222,9 @@ function initSkillGraph() {
         radGrad.append("stop").attr("offset", "40%").attr("stop-color", colors[group]).attr("stop-opacity", 0.4);
         radGrad.append("stop").attr("offset", "100%").attr("stop-color", colors[group]).attr("stop-opacity", 0);
     });
+
     data.links.forEach((l, i) => {
-        const gradientId = `grad-${i}`;
+        const gradientId = `hero-grad-${i}`;
         const gradient = defs.append("linearGradient")
             .attr("id", gradientId)
             .attr("gradientUnits", "userSpaceOnUse");
@@ -238,7 +246,7 @@ function initSkillGraph() {
         .selectAll("line")
         .data(data.links)
         .join("line")
-        .attr("class", "edge-line")
+        .attr("class", "hero-edge-line")
         .attr("stroke", d => `url(#${d.gradientId})`)
         .attr("stroke-opacity", 0.3)
         .attr("stroke-width", d => Math.max(1, Math.sqrt(d.value) * 1.5));
@@ -253,14 +261,14 @@ function initSkillGraph() {
     // Draw single circles with radial gradient fill for a seamless core+glow
     // We make the radius 3x larger to accommodate the fully transparent feathered edge
     const circle = nodeGroup.append("circle")
-        .attr("class", "node-core")
+        .attr("class", "hero-node-core")
         .attr("r", d => d.radius * 3)
-        .attr("fill", d => `url(#glow-${d.group})`)
+        .attr("fill", d => `url(#hero-glow-${d.group})`)
         .style("animation-delay", d => `${Math.random() * 4}s`);
 
     // Draw labels
     const label = nodeGroup.append("text")
-        .attr("class", "node-label")
+        .attr("class", "hero-node-label")
         .text(d => d.id)
         .attr("x", d => d.radius + 8)
         .attr("y", 4)
@@ -272,7 +280,7 @@ function initSkillGraph() {
     // Hover Interaction
     nodeGroup.on("mouseover", function (event, d) {
         // Boost node size slightly
-        d3.select(this).select(".node-core")
+        d3.select(this).select(".hero-node-core")
             .attr("r", d.radius * 3.3);
 
         // Show all connected labels & dim others
@@ -290,16 +298,16 @@ function initSkillGraph() {
         });
 
         // Highlight logic for nodes and labels
-        nodeGroup.selectAll(".node-core")
-            .attr("fill-opacity", n => connectedNodes.has(n.id) ? 1 : 0.2);
+        nodeGroup.selectAll("circle.hero-node-core")
+            .attr("opacity", n => connectedNodes.has(n.id) ? 1 : 0.2);
 
-        nodeGroup.selectAll("text")
+        nodeGroup.selectAll("text.hero-node-label")
             .attr("opacity", n => connectedNodes.has(n.id) ? 1 : (n.isHub ? 0.2 : 0))
             .attr("font-size", n => n.id === d.id ? "14px" : (n.isHub ? "12px" : "11px"));
     })
         .on("mouseout", function (event, d) {
             // Reset node styles
-            circle.attr("fill-opacity", 1)
+            circle.attr("opacity", 1)
                 .attr("r", n => n.radius * 3);
 
             // Reset text styles
@@ -329,13 +337,13 @@ function initSkillGraph() {
 
     // Update positions on tick and constrain within bounding box
     simulation.on("tick", () => {
-        // Update nodes with constraint box
+        // Update nodes with strict 50% width constraint box to avoid clipping into hero text on the left
         nodeGroup.attr("transform", d => {
-            // Allow nodes to bleed slightly off the container so they get safely cropped by overflow:hidden
-            // But keep the core node center near the edge to prevent disappearing completely
-            const padding = 0;
-            d.x = Math.max(-padding, Math.min(width + padding, d.x));
-            d.y = Math.max(-padding, Math.min(height + padding, d.y));
+            const padding = 20;
+            // The container is absolutely positioned, so width is its bounds. 
+            // We ensure d.x is never less than 0 natively, but actually clamp it strictly.
+            d.x = Math.max(padding, Math.min(width - padding, d.x));
+            d.y = Math.max(padding, Math.min(height - padding, d.y));
             return `translate(${d.x},${d.y})`;
         });
 
