@@ -48,6 +48,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
+    // --- Project Card Expand/Collapse ---
+    const expandButtons = document.querySelectorAll('.expand-btn');
+    expandButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            // Find the parent expandable container and the details section
+            const expandableContainer = this.closest('.project-expandable');
+            const detailsSection = expandableContainer.querySelector('.project-details');
+            const icon = this.querySelector('.expand-icon');
+
+            // Toggle expanded class
+            detailsSection.classList.toggle('expanded');
+
+            // Update button text and icon
+            if (detailsSection.classList.contains('expanded')) {
+                this.innerHTML = 'Show less <span class="expand-icon rotated">-</span>';
+                // Need to set max-height explicitly for transition to work properly
+                detailsSection.style.maxHeight = detailsSection.scrollHeight + 20 + "px";
+            } else {
+                this.innerHTML = 'Read more <span class="expand-icon">+</span>';
+                detailsSection.style.maxHeight = "0px";
+            }
+        });
+    });
+
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
     animatedElements.forEach(el => observer.observe(el));
 });

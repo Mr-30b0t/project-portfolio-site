@@ -26,7 +26,7 @@
     <header class="header">
         <nav class="nav-container">
             <a href="#home" class="logo">
-                <span class="logo-text">JD.</span>
+                <span class="logo-text">JDP.</span>
             </a>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span class="hamburger"></span>
@@ -36,7 +36,7 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact" class="btn btn-primary">Let's Connect</a></li>
+                <li><a href="#contact" class="btn btn-primary">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -65,43 +65,50 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="section">
+        <section id="about" class="section section-alt">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>01. About Me</h2>
+                    <h2>01. About</h2>
                     <div class="separator"></div>
                 </div>
                 <div class="about-content animate-on-scroll delay-1">
-                    <div class="about-text">
-                        <h3>A philosophy rooted in execution discipline.</h3>
-                        <p>I'm a registered nurse who became a prior authorization supervisor, then started writing code
-                            to eliminate the inefficiencies I was managing.</p>
-                        <p>That path gave me something uncommon: I understand clinical workflows because I've worked
-                            them. I understand payer operations because I supervise them. And I understand how to build
-                            software tools because I got tired of waiting for someone else to do it.</p>
-                        <p>At TMHP, I supervise PA clinicians processing Texas Medicaid authorizations &mdash; managing
-                            caseloads, building evaluation frameworks, handling complex eligibility cases across MCO
-                            transitions. Along the way, I built a Python GUI that 5x'd my own PA processing speed, an
-                            inventory bot that eliminated an hour of daily supervisor busywork, a Flask dashboard with a
-                            greedy algorithm that optimizes daily staffing assignments, and a Copilot RAG agent that
-                            gives citation-backed answers from the 900+ page Texas Medicaid manual.</p>
-                        <p><strong>I build before I'm asked.</strong> Every tool in my portfolio was self-initiated. No
-                            one assigned me to automate PA processing or index the TMPPM. I saw a problem, scoped a
-                            solution, and shipped it.</p>
-                        <p><strong>I think in systems, not tasks.</strong> My ADHD brain naturally maps process
-                            dependencies, bottlenecks, and cascading effects. I compensate for attention variability
-                            with structured frameworks &mdash; which means I build systems that work whether I'm having
-                            a sharp day or not. That discipline shows up in everything I create.</p>
-                        <p><strong>I translate across domains.</strong> I can explain a clinical policy to an engineer,
-                            walk a product team through payer operations workflows, and demo a Python tool to a clinical
-                            director &mdash; all in language that lands. This bridging capability is rare because most
-                            people live in only one of those worlds.</p>
-
-                        <div class="traits">
-                            <span class="badge">Clinical Fluency</span>
-                            <span class="badge">Operational Leadership</span>
-                            <span class="badge">Technical Capability</span>
+                    <div class="about-grid">
+                        <div class="about-text-column">
+                            <h3>The short version</h3>
+                            <p>I'm a registered nurse who became a prior authorization supervisor, then started writing
+                                code to eliminate the inefficiencies I was managing.</p>
+                            <p>That path gave me something uncommon: I understand clinical workflows because I've worked
+                                them. I understand payer operations because I supervise them. And I understand how to
+                                build software tools because I got tired of waiting for someone else to do it.</p>
+                            <p>At TMHP, I supervise PA clinicians processing Texas Medicaid authorizations &mdash;
+                                managing caseloads, building evaluation frameworks, handling complex eligibility cases
+                                across MCO transitions. Along the way, I built a Python GUI that 5x'd my own PA
+                                processing speed, an inventory bot that eliminated an hour of daily supervisor busywork,
+                                a Flask dashboard with a greedy algorithm that optimizes daily staffing assignments, and
+                                a Copilot RAG agent that gives citation-backed answers from the 900+ page Texas Medicaid
+                                manual.</p>
                         </div>
+
+                        <div class="about-metrics-column">
+                            <div class="metric-card metric-blue">
+                                <span class="metric-number">5x</span>
+                                <span class="metric-label">PA processing throughput</span>
+                            </div>
+                            <div class="metric-card metric-green">
+                                <span class="metric-number">1 hr/day</span>
+                                <span class="metric-label">Supervisor time reclaimed</span>
+                            </div>
+                            <div class="metric-card metric-amber">
+                                <span class="metric-number">900+ pages</span>
+                                <span class="metric-label">Indexed by RAG agent</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-traits-row">
+                        <span class="badge">Builder</span>
+                        <span class="badge">Systems Thinker</span>
+                        <span class="badge">Clinical-Technical Bridge</span>
                     </div>
                 </div>
             </div>
@@ -115,57 +122,86 @@
                     <div class="separator"></div>
                 </div>
                 <div class="timeline animate-on-scroll delay-1">
+                    <!-- Timeline Line -->
+                    <div class="timeline-line"></div>
+
                     <!-- Timeline Item 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
+                    <div class="timeline-item right">
+                        <div class="timeline-marker">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content border-blue">
                             <span class="timeline-date">2021 &mdash; Present</span>
                             <h3 class="timeline-title">PA Supervisor</h3>
                             <h4 class="timeline-company">TMHP / Accenture</h4>
+                            <p class="timeline-location">Remote, Texas</p>
                             <div class="timeline-body">
                                 <p>Supervise prior authorization clinicians processing Texas Medicaid authorizations for
                                     the state's fiscal agent. Manage daily operations across complex PA workflows
                                     including DME, ambulance transport, CSHCN programs, and MCO eligibility transitions.
                                 </p>
-                                <ul>
-                                    <li>Oversee PA clinician performance including quality audits, PIPs, and evaluation
-                                        frameworks for a team handling high-volume Medicaid authorization queues</li>
-                                    <li>Process and adjudicate complex authorization cases including Continuity of Plan
-                                        (COP), eligibility reinstatements, and cross-MCO handoffs requiring coordination
-                                        with HHSC, MCOs, and providers</li>
-                                    <li>Interpret and operationalize TMPPM policy, CMS regulatory requirements, and
-                                        MCO-specific guidelines into executable clinical review workflows</li>
-                                    <li>Built automation tools (Python, Flask, Microsoft Copilot) that eliminated manual
-                                        processes, improved processing throughput 5x, and saved 1+ hours of daily
-                                        supervisor overhead &mdash; all self-initiated, not assigned</li>
-                                </ul>
+                                <div class="project-expandable">
+                                    <div class="project-details">
+                                        <ul class="timeline-bullets bullet-blue">
+                                            <li>Oversee PA clinician performance including quality audits, PIPs, and
+                                                evaluation
+                                                frameworks for a team handling high-volume Medicaid authorization queues
+                                            </li>
+                                            <li>Process and adjudicate complex authorization cases including Continuity
+                                                of Plan
+                                                (COP), eligibility reinstatements, and cross-MCO handoffs requiring
+                                                coordination
+                                                with HHSC, MCOs, and providers</li>
+                                            <li>Interpret and operationalize TMPPM policy, CMS regulatory requirements,
+                                                and
+                                                MCO-specific guidelines into executable clinical review workflows</li>
+                                            <li>Built automation tools (Python, Flask, Microsoft Copilot) that
+                                                eliminated manual
+                                                processes, improved processing throughput 5x, and saved 1+ hours of
+                                                daily
+                                                supervisor overhead &mdash; all self-initiated</li>
+                                        </ul>
+                                    </div>
+                                    <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Timeline Item 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
+                    <div class="timeline-item left">
+                        <div class="timeline-marker">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content border-teal">
                             <span class="timeline-date">2018 &mdash; 2021</span>
                             <h3 class="timeline-title">Home Health / PDN Nurse</h3>
-                            <h4 class="timeline-company">BrightStar Home Health</h4>
+                            <h4 class="timeline-company">[HH EMPLOYER]</h4>
+                            <p class="timeline-location">Texas</p>
                             <div class="timeline-body">
                                 <p>Provided skilled nursing care in home health and private duty nursing settings,
                                     managing complex pediatric and adult patients with technology-dependent care needs.
                                 </p>
-                                <ul>
-                                    <li>Managed full patient caseloads including ventilator-dependent patients, seizure
-                                        monitoring, enteral feeding, and medication administration across home settings
-                                    </li>
-                                    <li>Built Selenium-based Python automation that reduced clinical documentation time
-                                        from 45 minutes to 4 minutes per patient encounter</li>
-                                    <li>Developed a web-based patient dashboard tailored to individual case parameters
-                                        &mdash; tracking seizures, medication schedules, feedings, and care milestones
-                                    </li>
-                                    <li>Gained firsthand understanding of provider-side documentation burden, PA
-                                        friction, and payer communication breakdowns</li>
-                                </ul>
+                                <div class="project-expandable">
+                                    <div class="project-details">
+                                        <ul class="timeline-bullets bullet-teal">
+                                            <li>Managed full patient caseloads including ventilator-dependent patients,
+                                                seizure
+                                                monitoring, enteral feeding, and medication administration</li>
+                                            <li>Built Selenium-based Python automation that reduced clinical
+                                                documentation time
+                                                from 45 minutes to 4 minutes per encounter</li>
+                                            <li>Developed a web-based patient dashboard tailored to individual case
+                                                parameters
+                                                &mdash; tracking seizures, medication schedules, feedings, and care
+                                                milestones
+                                            </li>
+                                            <li>Gained firsthand understanding of provider-side documentation burden, PA
+                                                friction, and payer communication breakdowns</li>
+                                        </ul>
+                                    </div>
+                                    <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -177,114 +213,220 @@
         <section id="projects" class="section section-alt">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>03. Featured Projects</h2>
+                    <h2>03. Projects</h2>
                     <div class="separator"></div>
                 </div>
-                <div class="project-grid animate-on-scroll delay-1">
-                    <!-- Project Card 1 -->
-                    <article class="project-card">
-                        <span class="project-category">AI / RAG • Clinical Policy</span>
-                        <h3 class="project-title">TMPPM Policy Indexer &mdash; Copilot RAG Agent</h3>
-                        <p class="project-desc">AI agent that delivers citation-backed answers to any Texas Medicaid PA
-                            question in seconds.<br><br><strong>Impact:</strong><br>• Reduced policy lookup time from
-                            10–20 minutes to under 60 seconds<br>• Structured citation format eliminated the "I think
-                            the manual says..." problem<br>• Designed to support frontline PA clinicians, supervisors,
-                            and training workflows</p>
+                <div class="project-featured animate-on-scroll delay-1">
+                    <!-- Project Card 1 (Lead) -->
+                    <article class="project-card lead-card">
+                        <div class="lead-card-header">
+                            <span class="project-category">AI / RAG</span>
+                            <h3 class="project-title">TMPPM Policy Indexer</h3>
+                            <p class="project-oneliner">AI agent that delivers citation-backed answers to any Texas
+                                Medicaid PA question in seconds.</p>
+                        </div>
+
+                        <div class="lead-metrics-row">
+                            <div class="lead-metric-box">
+                                <span class="lead-metric-val">10-20 min &rarr; 60 sec</span>
+                                <span class="lead-metric-label">Policy search time</span>
+                            </div>
+                            <div class="lead-metric-box">
+                                <span class="lead-metric-val">900+ pages</span>
+                                <span class="lead-metric-label">Indexed by RAG agent</span>
+                            </div>
+                        </div>
+
+                        <div class="project-expandable">
+                            <div class="project-details">
+                                <p><strong>Problem:</strong> The Texas Medicaid Provider Procedures Manual is 900+ pages
+                                    of dense regulatory and clinical policy. PA clinicians and supervisors routinely
+                                    spend 10–20 minutes searching for a single policy clarification, and still risk
+                                    misinterpreting or missing relevant sections.</p>
+                                <p><strong>What I built:</strong> A Microsoft Copilot agent using retrieval-augmented
+                                    generation (RAG) that indexes the full TMPPM corpus and returns structured,
+                                    citation-backed answers. Every response includes a confidence score calibrated to a
+                                    defined rubric, source citations with document title, section number, and page
+                                    number, applicable conditions and exceptions, risk flags for edge cases, and related
+                                    manual sections. The agent distinguishes between 'must,' 'may,' and 'should' per
+                                    manual language, escalates when confidence drops below threshold, and explicitly
+                                    flags when a question falls outside TMPPM scope.</p>
+                            </div>
+                            <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
+                        </div>
+
                         <div class="project-meta">
                             <span>Microsoft Copilot Studio</span>
-                            <span>RAG architecture</span>
+                            <span>RAG</span>
                             <span>Prompt Engineering</span>
+                            <span>Knowledge Management</span>
                         </div>
                     </article>
+                </div>
+
+                <div class="project-grid animate-on-scroll delay-2">
 
                     <!-- Project Card 2 -->
                     <article class="project-card">
-                        <span class="project-category">RPA • Process Automation</span>
+                        <span class="project-category">Process Automation</span>
                         <h3 class="project-title">PA Processing Automation GUI</h3>
-                        <p class="project-desc">Desktop GUI that automated repetitive PA data entry and 5x'd
-                            authorization processing throughput.<br><br><strong>Impact:</strong><br>• Increased personal
-                            processing throughput from 5/hour to 25/hour &mdash; a 5x improvement<br>• Standardized
-                            comment generation eliminated variability and reduced documentation errors<br>• Proved the
-                            concept that PA workflows are highly automatable</p>
+                        <p class="project-oneliner">Desktop GUI that automated repetitive PA data entry and 5x'd
+                            authorization processing throughput.</p>
+
+                        <div class="card-metric-callout">
+                            <span class="card-metric-val">5x throughput</span>
+                            <span class="card-metric-label">5/hr to 25/hr</span>
+                        </div>
+
+                        <div class="project-expandable">
+                            <div class="project-details">
+                                <p><strong>Problem:</strong> Processing prior authorizations required repetitive manual
+                                    steps: calculating service units, typing clinician comments, clicking through system
+                                    screens. At ~12 minutes per case, the ceiling was roughly 5 authorizations per hour.
+                                </p>
+                                <p><strong>What I built:</strong> A Python desktop application using PySimpleGUI that
+                                    applies RPA principles to automate the PA processing workflow. The tool
+                                    auto-calculates service units, generates standardized clinician comments from
+                                    structured input, then executes the full sequence of system interactions through
+                                    automated clicks and keystrokes.</p>
+                            </div>
+                            <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
+                        </div>
+
                         <div class="project-meta">
                             <span>Python</span>
                             <span>PySimpleGUI</span>
+                            <span>RPA</span>
                             <span>pyautogui</span>
                         </div>
                     </article>
 
                     <!-- Project Card 3 -->
                     <article class="project-card">
-                        <span class="project-category">Full-Stack • Algorithm Design</span>
-                        <h3 class="project-title">Operations Dashboard + Daily Plan Generator</h3>
-                        <p class="project-desc">Flask dashboard with real-time inventory visibility and a greedy
-                            algorithm that optimizes daily staff-to-work
-                            assignments.<br><br><strong>Impact:</strong><br>• Eliminated 15–20 minutes of daily manual
-                            planning per supervisor<br>• Generated mathematically consistent assignments vs. gut-feel
-                            allocation, reducing missed SLA deadlines<br>• Prioritization logic is directly transferable
-                            to any capacity planning or resource allocation problem</p>
+                        <span class="project-category">Full-Stack / Algorithm</span>
+                        <h3 class="project-title">Operations Dashboard + Planner</h3>
+                        <p class="project-oneliner">Flask dashboard with real-time inventory visibility and a greedy
+                            algorithm that optimizes daily assignments.</p>
+
+                        <div class="card-metric-callout">
+                            <span class="card-metric-val">15-20 min saved</span>
+                            <span class="card-metric-label">Daily planning per supervisor</span>
+                        </div>
+
+                        <div class="project-expandable">
+                            <div class="project-details">
+                                <p><strong>Problem:</strong> Supervisors had no real-time visibility into authorization
+                                    queue status. Daily work assignment was done by gut feel &mdash; eyeballing
+                                    inventory and assigning staff without structured methodology. This led to imbalanced
+                                    workloads and missed SLA deadlines.</p>
+                                <p><strong>What I built:</strong> A Flask web app with two modules. The dashboard pulls
+                                    live inventory counts and displays them in bar charts grouped by operational area.
+                                    The daily plan generator takes current inventory, available staff, shift hours, and
+                                    area qualifications as inputs, then outputs optimized assignments using a greedy
+                                    algorithm that prioritizes: (1) inventory due today, (2) areas only workable by few
+                                    qualified staff, (3) highest remaining volume.</p>
+                            </div>
+                            <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
+                        </div>
+
                         <div class="project-meta">
-                            <span>Python / Flask</span>
-                            <span>HTML/CSS/JS</span>
-                            <span>greedy algorithm</span>
+                            <span>Python</span>
+                            <span>Flask</span>
+                            <span>Chart.js</span>
+                            <span>Greedy Algorithm</span>
                         </div>
                     </article>
 
                     <!-- Project Card 4 -->
                     <article class="project-card">
-                        <span class="project-category">Automation • Operational Efficiency</span>
+                        <span class="project-category">Automation</span>
                         <h3 class="project-title">Inventory Automation Bot</h3>
-                        <p class="project-desc">Python bot that fully automated a manual inventory count process, saving
-                            supervisors an hour daily.<br><br><strong>Impact:</strong><br>• Eliminated ~1 hour of daily
-                            supervisor time previously spent on manual reporting<br>• Reports deliver consistently on
-                            schedule with zero formatting errors<br>• Freed supervisor capacity for higher-value
-                            clinical review work</p>
+                        <p class="project-oneliner">Python bot that fully automated a manual inventory count process,
+                            saving supervisors an hour daily.</p>
+
+                        <div class="card-metric-callout">
+                            <span class="card-metric-val">1 hr/day saved</span>
+                            <span class="card-metric-label">Per supervisor overhead</span>
+                        </div>
+
+                        <div class="project-expandable">
+                            <div class="project-details">
+                                <p><strong>Problem:</strong> Supervisors manually counted authorization inventory across
+                                    group areas every two hours. Each cycle took 15–20 minutes &mdash; roughly an hour
+                                    per shift on a task adding zero analytical value.</p>
+                                <p><strong>What I built:</strong> A Python script that automatically pulls inventory
+                                    data, breaks it down by group area, formats results into a structured Excel report,
+                                    and emails it to the distribution list on a recurring schedule. The entire process
+                                    runs unattended.</p>
+                            </div>
+                            <button class="expand-btn">Read more <span class="expand-icon">+</span></button>
+                        </div>
+
                         <div class="project-meta">
                             <span>Python</span>
                             <span>openpyxl</span>
                             <span>smtplib</span>
+                            <span>Automation</span>
                         </div>
                     </article>
                 </div>
-            </div>
-        </section>
 
-        <!-- Earlier Work Section -->
-        <section id="earlier-work" class="section">
-            <div class="container">
-                <div class="section-header animate-on-scroll">
-                    <h2>04. Earlier Work</h2>
-                    <div class="separator"></div>
-                </div>
-                <div class="project-grid animate-on-scroll delay-1">
-                    <article class="project-card">
-                        <span class="project-category">Automation Experience</span>
-                        <h3 class="project-title">Selenium Documentation Automation</h3>
-                        <p class="project-desc">Built Python scripts using Selenium WebDriver to automate clinical
-                            documentation in the home health EMR. Reduced per-encounter documentation time from 45
-                            minutes to 4 minutes by automating field population, form navigation, and submission
-                            workflows across the charting system. This was the project that taught me automation was
-                            possible &mdash; and that clinical workflows are full of repetitive sequences begging to be
-                            scripted.</p>
-                        <div class="project-meta">
-                            <span>Python</span>
-                            <span>Selenium WebDriver</span>
-                        </div>
-                    </article>
+                <!-- Earlier Work Section -->
+                <div class="earlier-work-container animate-on-scroll delay-3">
+                    <div class="section-header">
+                        <h3 class="earlier-work-heading">Earlier Work Archive</h3>
+                        <div class="separator"></div>
+                    </div>
+                    <div class="earlier-work-grid">
+                        <article class="project-card earlier-card">
+                            <div class="earlier-card-header">
+                                <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                    </path>
+                                </svg>
+                                <div class="earlier-links">
+                                    <!-- Could add GitHub link here if available -->
+                                </div>
+                            </div>
+                            <h4 class="project-title">Selenium Documentation Automation</h4>
+                            <p class="project-oneliner">Python scripts using Selenium WebDriver to automate clinical
+                                documentation in the home health EMR. Reduced per-encounter documentation time from 45
+                                minutes
+                                to 4 minutes.</p>
+                            <div class="project-meta">
+                                <span>Python</span>
+                                <span>Selenium</span>
+                                <span>EMR Automation</span>
+                            </div>
+                        </article>
 
-                    <article class="project-card">
-                        <span class="project-category">Web UI Experience</span>
-                        <h3 class="project-title">Home Health Patient Dashboard</h3>
-                        <p class="project-desc">Developed a web-based dashboard tailored to individual home health
-                            patient cases. The interface tracked patient-specific parameters &mdash; seizure frequency,
-                            medication administration times, feeding schedules, vital sign trends &mdash; giving nurses
-                            and families a unified view of the patient's care status. Built to solve the problem of care
-                            information being scattered across paper logs, EMR screens, and verbal handoffs.</p>
-                        <div class="project-meta">
-                            <span>HTML/CSS/JS</span>
-                            <span>Python backend</span>
-                        </div>
-                    </article>
+                        <article class="project-card earlier-card">
+                            <div class="earlier-card-header">
+                                <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h4 class="project-title">Home Health Patient Dashboard</h4>
+                            <p class="project-oneliner">Web-based dashboard tailored to individual home health patient
+                                cases.
+                                Tracked seizure frequency, medication administration, feeding schedules, and vital sign
+                                trends.
+                            </p>
+                            <div class="project-meta">
+                                <span>HTML/CSS/JS</span>
+                                <span>Python</span>
+                                <span>Django</span>
+                                <span>Patient Tracking</span>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
@@ -293,45 +435,56 @@
         <section id="skills" class="section">
             <div class="container">
                 <div class="section-header animate-on-scroll">
-                    <h2>05. Skills & Toolkit</h2>
+                    <h2>05. Skills</h2>
                     <div class="separator"></div>
                 </div>
                 <div class="skills-grid animate-on-scroll delay-1">
-                    <div class="skill-category">
-                        <h3>Clinical & Domain Expertise</h3>
-                        <ul class="skill-list">
-                            <li>Prior Authorization Operations (TX Medicaid)</li>
-                            <li>Utilization Management & Clinical Review</li>
-                            <li>CMS Regulatory Requirements</li>
-                            <li>MCO Transitions & Eligibility Systems</li>
-                            <li>Clinical Policy Interpretation (TMPPM)</li>
-                            <li>RN License &mdash; Active, Texas</li>
-                        </ul>
+
+                    <!-- Clinical & Domain -->
+                    <div class="skill-category skill-category--blue">
+                        <h3 class="skill-group-header">Clinical &amp; Domain</h3>
+                        <div class="pill-cluster">
+                            <span class="pill pill-accent pill-blue">PA Operations (Texas Medicaid)</span>
+                            <span class="pill pill-std pill-blue">Utilization Management</span>
+                            <span class="pill pill-std pill-blue">CMS Regulations</span>
+                            <span class="pill pill-std pill-blue">MCO Transitions &amp; Eligibility</span>
+                            <span class="pill pill-std pill-blue">Clinical Policy (TMPPM)</span>
+                            <span class="pill pill-accent pill-blue">RN License (Active, Texas)</span>
+                        </div>
                     </div>
 
-                    <div class="skill-category">
-                        <h3>Technical</h3>
-                        <ul class="skill-list">
-                            <li>Python (scripting, automation, GUI, Flask)</li>
-                            <li>RPA Principles (PyAutoGUI, Selenium)</li>
-                            <li>Copilot Studio & RAG Agent Design</li>
-                            <li>Prompt Engineering & Workflow Design</li>
-                            <li>Data Visualization & Dashboards</li>
-                            <li>Algorithm Design (Greedy Optimization)</li>
-                        </ul>
+                    <!-- Technical -->
+                    <div class="skill-category skill-category--green">
+                        <h3 class="skill-group-header">Technical</h3>
+                        <div class="pill-cluster">
+                            <span class="pill pill-accent pill-green">Python</span>
+                            <span class="pill pill-std pill-green">Flask</span>
+                            <span class="pill pill-std pill-green">PySimpleGUI</span>
+                            <span class="pill pill-std pill-green">RPA (pyautogui, Selenium)</span>
+                            <span class="pill pill-accent pill-green">RAG / AI Agents</span>
+                            <span class="pill pill-std pill-green">Microsoft Copilot Studio</span>
+                            <span class="pill pill-accent pill-green">Prompt Engineering</span>
+                            <span class="pill pill-std pill-green">Data Visualization (Chart.js)</span>
+                            <span class="pill pill-std pill-green">Algorithm Design</span>
+                            <span class="pill pill-std pill-green">Excel Automation (openpyxl)</span>
+                            <span class="pill pill-std pill-green">Obsidian KMS</span>
+                        </div>
                     </div>
 
-                    <div class="skill-category">
-                        <h3>Implementation & Operations Leadership</h3>
-                        <ul class="skill-list">
-                            <li>Team Supervision & Performance Management</li>
-                            <li>Process Documentation & Playbooks</li>
-                            <li>Training Material & End-User Onboarding</li>
-                            <li>Cross-Functional Stakeholder Communication</li>
-                            <li>Workflow-to-Requirements Translation</li>
-                            <li>SLA Management & Operational Reporting</li>
-                        </ul>
+                    <!-- Operations & Leadership -->
+                    <div class="skill-category skill-category--amber">
+                        <h3 class="skill-group-header">Operations &amp; Leadership</h3>
+                        <div class="pill-cluster">
+                            <span class="pill pill-std pill-amber">Team Supervision</span>
+                            <span class="pill pill-std pill-amber">Performance Management (PIPs, QA)</span>
+                            <span class="pill pill-std pill-amber">Process Design &amp; Documentation</span>
+                            <span class="pill pill-std pill-amber">Training Development</span>
+                            <span class="pill pill-std pill-amber">Cross-Functional Communication</span>
+                            <span class="pill pill-accent pill-amber">Workflow-to-Requirements Translation</span>
+                            <span class="pill pill-std pill-amber">SLA Management</span>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -341,24 +494,43 @@
             <div class="container contact-container animate-on-scroll">
                 <h2 class="contact-title">Let's talk about where clinical meets technical.</h2>
                 <p class="contact-subtitle">I'm pursuing roles where domain expertise in healthcare operations and
-                    hands-on technical capability aren't separate job descriptions &mdash; they're the same person. If
-                    that's what your team needs, I'd like to hear about it.</p>
-                <div class="contact-methods">
-                    <a href="mailto:jonathan10620@gmail.com" class="btn btn-primary btn-lg">jonathan10620@gmail.com</a>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/jonathan-delapaz/" target="_blank"
-                            rel="noopener noreferrer">LinkedIn</a>
-                        <a href="#" target="_blank" rel="noopener noreferrer">Resume</a>
-                        <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    </div>
+                    hands-on technical capability aren't separate job descriptions; they're the same person.</p>
+
+                <div class="contact-links-row ">
+                    <!-- Email -->
+                    <a href="mailto:jonathan10620@gmail.com" class="contact-link-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <polyline points="2,4 12,13 22,4" />
+                        </svg>
+                        <span>jonathan10620@gmail.com</span>
+                    </a>
+
+                    <span class="contact-divider" aria-hidden="true"></span>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/jonathan-delapaz/" target="_blank" rel="noopener noreferrer"
+                        class="contact-link-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                        <span>LinkedIn</span>
+                    </a>
+
                 </div>
+
+                <p class="contact-location">Texas (Remote)</p>
+                <p class="contact-signal">Currently exploring roles in healthcare AI, clinical implementation, and
+                    operations technology.</p>
             </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Jonathan Dela Paz. Designed & Built explicitly for execution.</p>
+            <p>&copy; 2026 Jonathan De La Paz BSN, RN</p>
         </div>
     </footer>
 
