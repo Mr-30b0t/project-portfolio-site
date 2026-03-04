@@ -736,11 +736,85 @@ function initTimelineGraphs() {
         ]
     };
 
+    const roleEdges = {
+        'role-pa-supervisor': [
+            { source: "Python", target: "Flask" },
+            { source: "Python", target: "RAG / AI Agents" },
+            { source: "Copilot Studio", target: "Prompt Eng" },
+            { source: "Flask", target: "Chart.js" },
+            { source: "Python", target: "Algorithm Design" },
+            { source: "PA Operations", target: "CMS Regulations" },
+            { source: "PA Operations", target: "Clinical Policy" },
+            { source: "Utilization Mgmt", target: "MCO Transitions" },
+            { source: "Workflow Translation", target: "Process Design" },
+            { source: "Performance Mgmt", target: "RCA & QA" },
+            { source: "Staff Onboarding", target: "Training Dev" },
+            { source: "Compliance Auto", target: "Process Design" }
+        ],
+        'role-pa-clinician': [
+            { source: "Python", target: "RPA (pyautogui)" },
+            { source: "Python", target: "PySimpleGUI" },
+            { source: "PA Operations", target: "Clinical Policy" },
+            { source: "PA Operations", target: "CMS Regulations" }
+        ],
+        'role-home-health': [
+            { source: "Python", target: "RPA (Selenium)" },
+            { source: "Python", target: "openpyxl" }
+        ],
+        'role-neuro': []
+    };
+
+    const tooltipContent = {
+        "Python": "PA GUI · Staffing Dashboard · Selenium Automation · Inventory Bot",
+        "RAG / AI Agents": "TMPPM Policy Indexer",
+        "Copilot Studio": "TMPPM Policy Indexer",
+        "Prompt Eng": "TMPPM Policy Indexer",
+        "Flask": "Operations Dashboard + Planner",
+        "Algorithm Design": "Operations Dashboard + Planner",
+        "Chart.js": "Operations Dashboard + Planner",
+        "RPA (pyautogui)": "PA Processing Automation GUI",
+        "PySimpleGUI": "PA Processing Automation GUI",
+        "RPA (Selenium)": "Selenium Documentation Automation",
+        "openpyxl": "Inventory Automation Bot",
+        "Data Viz": "Operations Dashboard · Patient Dashboard",
+        "Workflow Translation": "Policy-to-automation design across all supervisor tools",
+        "PA Operations": "Core domain — 15,000+ requests/month",
+        "RN License": "Active, Texas — clinical foundation across all roles",
+        "Clinical Policy": "Medicaid policy interpretation & gray-area adjudication",
+        "CMS Regulations": "Federal compliance framework for PA operations",
+        "Performance Mgmt": "Team of 45+ staff — metrics, coaching, reviews",
+        "Utilization Mgmt": "Medical necessity review & resource allocation",
+        "Process Design": "Workflow engineering across clinical operations",
+        "MCO Transitions": "Managed care organization migration coordination",
+        "Training Dev": "Onboarding curriculum & continuing education programs",
+        "Staff Onboarding": "New hire integration & competency validation",
+        "RCA & QA": "Root cause analysis & quality assurance protocols",
+        "Compliance Auto": "Automated compliance monitoring & reporting"
+    };
+    const defaultTooltip = "Supporting skill in this role";
+
     const colors = {
         clinical: '#60a5fa',
         technical: '#4ade80',
         operational: '#fbbf24'
     };
+
+    // Create shared tooltip element
+    let tooltip = document.querySelector('.timeline-tooltip');
+    if (!tooltip) {
+        tooltip = document.createElement('div');
+        tooltip.className = 'timeline-tooltip';
+        document.body.appendChild(tooltip);
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.timeline-node-group') && !e.target.closest('.timeline-tooltip')) {
+                tooltip.classList.remove('visible');
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') tooltip.classList.remove('visible');
+        });
+    }
 
     // Use Intersection observer to trigger graph animations when scrolled into view
     const observer = new IntersectionObserver((entries) => {
@@ -766,100 +840,346 @@ function initTimelineGraphs() {
     function renderGraph(container) {
         const roleId = container.parentElement.id;
         const nodes = roleSkills[roleId].map(d => Object.create(d));
+        const links = (roleEdges[roleId] || []).map(d => Object.create(d));
 
-        // Remove edges array to support floating scatter cluster
         const width = container.clientWidth || 300;
-        const height = container.clientHeight || 300;
+
+        // Capture the collapsed card position at render time using exact pixel positions.
+        // getBoundingClientRect gives us the true screen positions of both elements,
+        // so we can compute exactly where the card sits inside the SVG coordinate space.
+        const cardContent = container.parentElement.querySelector('.timeline-content');
+        const cardRect = cardContent.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const collapsedCardHeight = cardRect.height;
+        const cardTopInSvg = cardRect.top - containerRect.top;
+        const cardMidY = cardTopInSvg + (collapsedCardHeight / 2);
+
+        // Detect which side the item is on and bias nodes toward the timeline center line
+        const isRight = container.parentElement.classList.contains('right');
+        // For right-side items, the graph is on the LEFT, so push nodes toward the right edge (near timeline)
+        // For left-side items, the graph is on the RIGHT, so push nodes toward the left edge (near timeline)
+        const targetX = isRight ? width * 0.75 : width * 0.25;
 
         const svg = d3.select(container).append("svg")
             .attr("width", "100%")
             .attr("height", "100%")
-            .style("overflow", "visible"); // Allow nodes to drift slightly out
+            .style("overflow", "visible");
 
         const simulation = d3.forceSimulation(nodes)
-            .force("charge", d3.forceManyBody().strength(-80))
-            .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collide", d3.forceCollide().radius(d => d.radius + 20).iterations(3))
-            .alphaTarget(0.005) // slight continuous drift
+            .force("link", d3.forceLink(links).id(d => d.id).distance(60).strength(0.2))
+            .force("charge", d3.forceManyBody().strength(-150))
+            .force("x", d3.forceX(targetX).strength(0.06))
+            .force("y", d3.forceY(cardMidY).strength(0.08))
+            .alphaTarget(0.005)
             .velocityDecay(0.6);
 
-        const node = svg.append("g")
+        // Render edges before nodes so nodes layer on top
+        const edgeGroup = svg.append("g")
+            .selectAll("line")
+            .data(links)
+            .join("line")
+            .attr("class", "timeline-edge")
+            .attr("stroke", d => colors[d.source.group] || "rgba(255,255,255,0.2)")
+            .attr("stroke-width", 1)
+            .attr("stroke-opacity", 0.15)
+            .style("transition", "stroke-opacity 0.2s ease, stroke-width 0.2s ease")
+            .style("pointer-events", "none");
+
+        const nodeGroup = svg.append("g")
             .selectAll("g")
             .data(nodes)
             .join("g")
-            .style("cursor", "crosshair")
-            .style("opacity", 0); // start invisible for staggered fade-in
+            .attr("class", "timeline-node-group")
+            .attr("data-skill", d => d.id)
+            .style("cursor", "pointer")
+            .style("opacity", 0);
 
-        // Subtle glow radius
-        node.append("circle")
+        // Inner group for CSS idle drift (separate from D3 translate)
+        const nodeInner = nodeGroup.append("g")
+            .attr("class", "timeline-node-inner")
+            .style("animation-duration", () => `${3 + Math.random() * 3}s`)
+            .style("animation-delay", () => `-${Math.random() * 3}s`);
+
+        // Subtle glow
+        nodeInner.append("circle")
             .attr("r", d => d.radius * 2.5)
             .attr("fill", d => colors[d.group])
             .attr("opacity", 0.15);
 
-        // Core solid circle (border mapped to group per requirements)
-        node.append("circle")
+        // Core circle
+        nodeInner.append("circle")
             .attr("class", "timeline-node-core")
             .attr("r", d => d.radius)
-            .attr("fill", "transparent")
+            .attr("fill", d => d.type === 'small' ? colors[d.group] : "transparent")
             .attr("stroke", d => colors[d.group])
             .attr("stroke-width", 1.5);
 
-        // Node labels
-        node.append("text")
+        // Labels
+        nodeInner.append("text")
+            .attr("class", "timeline-node-label")
             .text(d => d.id)
             .attr("x", d => d.radius + 8)
             .attr("y", 4)
             .attr("font-size", d => d.type === 'large' ? "12px" : "10px")
             .attr("font-weight", d => d.type === 'large' ? "600" : "500")
             .attr("fill", "rgba(255,255,255,0.7)")
-            .style("opacity", d => d.type === 'small' ? 0 : 1) // Hide labels for small nodes initially
+            .style("opacity", d => d.type === 'small' ? 0 : 1)
             .style("pointer-events", "none")
-            .style("transition", "opacity 0.2s ease");
+            .style("transition", "opacity 0.2s ease")
+            .each(function (d) {
+                d.labelAnchor = 'right';
+                const charW = d.type === 'large' ? 7 : 6;
+                d.labelW = d.id.length * charW;
+                d.labelH = d.type === 'large' ? 14 : 12;
+            });
 
-        // Hover Effect
-        node.on("mouseover", function (event, d) {
-            d3.select(this).select("circle.timeline-node-core")
-                .transition().duration(200)
-                .attr("r", d.radius * 2)
-                .attr("fill", colors[d.group]) // Fill it in on hover
-                .attr("fill-opacity", 0.3);
-            d3.select(this).select("text")
-                .transition().duration(200)
-                .style("opacity", 1) // Show label always on hover
-                .attr("fill", "#ffffff")
-                .attr("font-weight", "600");
+        // --- Cross-Timeline Hover ---
+        nodeGroup.on("mouseover", function (event, d) {
+            document.querySelectorAll('.timeline-graph-container').forEach(c => c.classList.add('interaction-active'));
+
+            document.querySelectorAll('.timeline-node-group').forEach(group => {
+                const inner = group.querySelector('.timeline-node-inner');
+                const nodeData = d3.select(group).datum();
+                if (group.getAttribute('data-skill') === d.id) {
+                    group.classList.add('timeline-highlighted');
+                    group.classList.remove('timeline-dimmed');
+                    d3.select(inner).select("circle.timeline-node-core")
+                        .transition().duration(200)
+                        .attr("r", nodeData.radius * 1.2)
+                        .attr("fill", colors[nodeData.group])
+                        .attr("fill-opacity", 0.3);
+                    d3.select(inner).select("text")
+                        .transition().duration(200)
+                        .style("opacity", 1)
+                        .attr("fill", "#ffffff")
+                        .attr("font-weight", "600");
+                } else {
+                    group.classList.add('timeline-dimmed');
+                    group.classList.remove('timeline-highlighted');
+                }
+            });
+
+            // Highlight connected edges
+            d3.selectAll('.timeline-edge').each(function (l) {
+                if (l.source.id === d.id || l.target.id === d.id) {
+                    d3.select(this).attr("stroke-opacity", 0.6).attr("stroke-width", 1.5);
+                } else {
+                    d3.select(this).attr("stroke-opacity", 0.05);
+                }
+            });
         }).on("mouseout", function (event, d) {
-            d3.select(this).select("circle.timeline-node-core")
-                .transition().duration(300)
-                .attr("r", d.radius)
-                .attr("fill", "transparent");
-            d3.select(this).select("text")
-                .transition().duration(300)
-                .style("opacity", d.type === 'small' ? 0 : 1)
-                .attr("fill", "rgba(255,255,255,0.7)")
-                .attr("font-weight", d.type === 'large' ? "600" : "500");
+            document.querySelectorAll('.timeline-graph-container').forEach(c => c.classList.remove('interaction-active'));
+
+            document.querySelectorAll('.timeline-node-group').forEach(group => {
+                group.classList.remove('timeline-dimmed', 'timeline-highlighted');
+                const nodeData = d3.select(group).datum();
+                const inner = group.querySelector('.timeline-node-inner');
+                if (nodeData) {
+                    d3.select(inner).select("circle.timeline-node-core")
+                        .transition().duration(300)
+                        .attr("r", nodeData.radius)
+                        .attr("fill", nodeData.type === 'small' ? colors[nodeData.group] : "transparent")
+                        .attr("fill-opacity", 1);
+                    d3.select(inner).select("text")
+                        .transition().duration(300)
+                        .style("opacity", nodeData.type === 'small' ? 0 : 1)
+                        .attr("fill", "rgba(255,255,255,0.7)")
+                        .attr("font-weight", nodeData.type === 'large' ? "600" : "500");
+                }
+            });
+
+            d3.selectAll('.timeline-edge')
+                .attr("stroke-opacity", 0.15)
+                .attr("stroke-width", 1);
+        }).on("click", function (event, d) {
+            event.stopPropagation();
+            const content = tooltipContent[d.id] || defaultTooltip;
+            tooltip.innerHTML = `<strong>${d.id}</strong><br/>${content}`;
+            tooltip.style.left = `${event.pageX + 15}px`;
+            tooltip.style.top = `${event.pageY + 15}px`;
+            tooltip.classList.add('visible');
         });
 
-        // Add staggered fade-in transition when graph renders
-        node.transition()
+        // Staggered fade-in
+        nodeGroup.transition()
             .delay((d, i) => i * 60)
             .duration(800)
             .style("opacity", 1);
 
+        // --- Collision Detection Helper ---
+        // Accepts bounds so nodes are never pushed outside the card
+        const resolveCollisions = (yMin, yMax) => {
+            const LABEL_PAD = 6;
+            for (let pass = 0; pass < 50; pass++) {
+                let overlapFound = false;
+                for (let i = 0; i < nodes.length; i++) {
+                    for (let j = i + 1; j < nodes.length; j++) {
+                        const a = nodes[i];
+                        const b = nodes[j];
+
+                        if (a.type === 'small' && b.type === 'small') {
+                            const dx = a.x - b.x;
+                            const dy = a.y - b.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 20) {
+                                overlapFound = true;
+                                const push = (20 - dist) / 2;
+                                const angle = Math.atan2(dy, dx);
+                                a.x += Math.cos(angle) * push;
+                                a.y += Math.sin(angle) * push;
+                                b.x -= Math.cos(angle) * push;
+                                b.y -= Math.sin(angle) * push;
+                                a.y = Math.max(yMin, Math.min(yMax, a.y));
+                                b.y = Math.max(yMin, Math.min(yMax, b.y));
+                            }
+                            continue;
+                        }
+
+                        const getBox = (n) => {
+                            if (n.type === 'small') {
+                                return { left: n.x - 10, right: n.x + 10, top: n.y - 10, bottom: n.y + 10 };
+                            }
+                            const x1 = n.labelAnchor === 'right' ? n.x + n.radius + 8 : n.x - n.radius - 8 - n.labelW;
+                            const x2 = n.labelAnchor === 'right' ? n.x + n.radius + 8 + n.labelW : n.x - n.radius - 8;
+                            const fullLeft = Math.min(n.x - n.radius, x1);
+                            const fullRight = Math.max(n.x + n.radius, x2);
+                            return {
+                                left: fullLeft - LABEL_PAD,
+                                right: fullRight + LABEL_PAD,
+                                top: n.y - (n.labelH / 2) - LABEL_PAD,
+                                bottom: n.y + (n.labelH / 2) + LABEL_PAD
+                            };
+                        };
+
+                        const boxA = getBox(a);
+                        const boxB = getBox(b);
+
+                        if (boxA.left < boxB.right && boxA.right > boxB.left &&
+                            boxA.top < boxB.bottom && boxA.bottom > boxB.top) {
+                            overlapFound = true;
+
+                            // Try flipping label anchors first
+                            if (a.type !== 'small') {
+                                const oldAnchor = a.labelAnchor;
+                                a.labelAnchor = oldAnchor === 'right' ? 'left' : 'right';
+                                const newBoxA = getBox(a);
+                                if (!(newBoxA.left < boxB.right && newBoxA.right > boxB.left && newBoxA.top < boxB.bottom && newBoxA.bottom > boxB.top)) {
+                                    continue;
+                                }
+                                a.labelAnchor = oldAnchor;
+                            }
+
+                            if (b.type !== 'small') {
+                                const oldAnchor = b.labelAnchor;
+                                b.labelAnchor = oldAnchor === 'right' ? 'left' : 'right';
+                                const newBoxB = getBox(b);
+                                if (!(boxA.left < newBoxB.right && boxA.right > newBoxB.left && boxA.top < newBoxB.bottom && boxA.bottom > newBoxB.top)) {
+                                    continue;
+                                }
+                                b.labelAnchor = oldAnchor;
+                            }
+
+                            // Push apart on the axis with LESS overlap (easier to resolve)
+                            const overlapX = Math.min(boxA.right - boxB.left, boxB.right - boxA.left);
+                            const overlapY = Math.min(boxA.bottom - boxB.top, boxB.bottom - boxA.top);
+
+                            if (overlapX < overlapY) {
+                                // Push horizontally
+                                const pushX = overlapX / 2 + 4;
+                                if (a.x < b.x) {
+                                    a.x -= pushX;
+                                    b.x += pushX;
+                                } else {
+                                    a.x += pushX;
+                                    b.x -= pushX;
+                                }
+                            } else {
+                                // Push vertically
+                                const pushY = overlapY / 2 + 2;
+                                if (a.y < b.y) {
+                                    a.y -= pushY;
+                                    b.y += pushY;
+                                } else {
+                                    a.y += pushY;
+                                    b.y -= pushY;
+                                }
+                            }
+                            a.y = Math.max(yMin, Math.min(yMax, a.y));
+                            b.y = Math.max(yMin, Math.min(yMax, b.y));
+                        }
+                    }
+                }
+                if (!overlapFound) break;
+            }
+        };
+
+        const boundsTop = cardTopInSvg + 16;
+        const boundsBottom = cardTopInSvg + collapsedCardHeight - 16;
+
+        // --- Tick ---
         simulation.on("tick", () => {
-            // Keep roughly within bounds but allow a bit more padding since container is larger
+            // Step A: Horizontal bounds
             nodes.forEach(d => {
-                const pad = 30;
-                d.x = Math.max(pad, Math.min(width - pad, d.x));
-                d.y = Math.max(pad, Math.min(height - pad, d.y));
+                d.x = Math.max(30, Math.min(width - 30, d.x));
             });
 
-            node.attr("transform", d => `translate(${d.x},${d.y})`);
+            // Step B: Resolve collisions (with built-in bounds enforcement)
+            resolveCollisions(boundsTop, boundsBottom);
+
+            // Step C: Bounding box centering
+            let lowestNodeY = Infinity;
+            let highestNodeY = -Infinity;
+            nodes.forEach(d => {
+                if (d.y - d.radius < lowestNodeY) lowestNodeY = d.y - d.radius;
+                if (d.y + d.radius > highestNodeY) highestNodeY = d.y + d.radius;
+            });
+            const clusterMidY = lowestNodeY === Infinity ? cardMidY : (highestNodeY + lowestNodeY) / 2;
+            const offsetY = cardMidY - clusterMidY;
+
+            // Only apply centering if the offset is significant (>2px)
+            if (Math.abs(offsetY) > 2) {
+                nodes.forEach(d => {
+                    d.y += offsetY;
+                });
+            }
+
+            // Step D: Final hard clamp (absolute last step before DOM)
+            nodes.forEach(d => {
+                d.y = Math.max(boundsTop, Math.min(boundsBottom, d.y));
+            });
+
+            // Step E: Apply to DOM
+            edgeGroup
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            nodeGroup.attr("transform", d => `translate(${d.x},${d.y})`);
+
+            // Flip text anchors based on collision resolution
+            nodeGroup.selectAll('text')
+                .attr("x", d => d.labelAnchor === 'right' ? d.radius + 8 : -(d.radius + 8))
+                .attr("text-anchor", d => d.labelAnchor === 'right' ? "start" : "end");
         });
 
-        // Gentle entrance kick
         simulation.alpha(0.3).restart();
     }
+
+    // Parallax scroll hook
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                document.querySelectorAll('.timeline-graph-container').forEach(container => {
+                    container.style.transform = `translateY(${scrollY * 0.05}px)`;
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
 }
 
 // Ensure init is called after content load

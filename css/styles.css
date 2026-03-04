@@ -641,6 +641,91 @@ a {
     }
 }
 
+/* =========================================
+   TIMELINE NODE INTERACTIVITY
+   ========================================= */
+
+.timeline-node-group {
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+}
+
+.timeline-node-group.timeline-dimmed {
+    opacity: 0.3 !important;
+}
+
+.timeline-node-group.timeline-highlighted {
+    opacity: 1 !important;
+}
+
+/* Idle drift animation */
+@keyframes timeline-drift {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(2px, -1.5px);
+    }
+
+    50% {
+        transform: translate(-1px, 2px);
+    }
+
+    75% {
+        transform: translate(-2px, -1px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.timeline-node-inner {
+    animation: timeline-drift 4s ease-in-out infinite;
+    will-change: transform;
+}
+
+/* Pause drift when interacting */
+.timeline-graph-container.interaction-active .timeline-node-inner {
+    animation-play-state: paused !important;
+}
+
+/* Click tooltip */
+.timeline-tooltip {
+    position: absolute;
+    background: rgba(15, 15, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    max-width: 280px;
+    pointer-events: auto;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.timeline-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline-tooltip a {
+    color: var(--clr-primary);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.timeline-tooltip a:hover {
+    text-decoration: underline;
+}
+
 .timeline-marker {
     position: absolute;
     top: var(--space-lg);
