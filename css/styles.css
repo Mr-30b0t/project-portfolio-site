@@ -609,6 +609,38 @@ a {
     left: 50%;
 }
 
+/* D3 Graph Container embedded opposite the card */
+.timeline-graph-container {
+    position: absolute;
+    top: -20%;
+    width: 130%;
+    height: 140%;
+    z-index: 0;
+    pointer-events: none;
+    /* Let clicks pass through */
+}
+
+/* Place right-side item's graph in the left empty space */
+.timeline-item.right .timeline-graph-container {
+    left: -130%;
+    padding-right: 60px;
+    /* buffer from center line */
+}
+
+/* Place left-side item's graph in the right empty space */
+.timeline-item.left .timeline-graph-container {
+    left: 100%;
+    padding-left: 60px;
+    /* buffer from center line */
+}
+
+/* Hide on mobile where it stacks into a single column */
+@media (max-width: 768px) {
+    .timeline-graph-container {
+        display: none !important;
+    }
+}
+
 .timeline-marker {
     position: absolute;
     top: var(--space-lg);

@@ -685,14 +685,193 @@ function initAmbientSkillsGraph() {
     }
 }
 
+function initTimelineGraphs() {
+    // Only run if not on mobile (matching CSS display: none logic)
+    if (window.innerWidth <= 768) return;
+
+    const roleSkills = {
+        'role-pa-supervisor': [
+            { id: "Python", group: "technical", radius: 7, type: 'large' },
+            { id: "RAG / AI Agents", group: "technical", radius: 7, type: 'large' },
+            { id: "Workflow Translation", group: "operational", radius: 7, type: 'large' },
+            { id: "PA Operations", group: "clinical", radius: 7, type: 'large' },
+            { id: "Flask", group: "technical", radius: 5, type: 'medium' },
+            { id: "Copilot Studio", group: "technical", radius: 5, type: 'medium' },
+            { id: "Prompt Eng", group: "technical", radius: 5, type: 'medium' },
+            { id: "Algorithm Design", group: "technical", radius: 5, type: 'medium' },
+            { id: "Process Design", group: "operational", radius: 5, type: 'medium' },
+            { id: "Performance Mgmt", group: "operational", radius: 5, type: 'medium' },
+            { id: "CMS Regulations", group: "clinical", radius: 5, type: 'medium' },
+            { id: "Utilization Mgmt", group: "clinical", radius: 5, type: 'medium' },
+            { id: "Chart.js", group: "technical", radius: 3, type: 'small' },
+            { id: "openpyxl", group: "technical", radius: 3, type: 'small' },
+            { id: "MCO Transitions", group: "clinical", radius: 3, type: 'small' },
+            { id: "Clinical Policy", group: "clinical", radius: 3, type: 'small' },
+            { id: "Training Dev", group: "operational", radius: 3, type: 'small' },
+            { id: "Staff Onboarding", group: "operational", radius: 3, type: 'small' },
+            { id: "RCA & QA", group: "operational", radius: 3, type: 'small' },
+            { id: "Compliance Auto", group: "operational", radius: 3, type: 'small' }
+        ],
+        'role-pa-clinician': [
+            { id: "PA Operations", group: "clinical", radius: 7, type: 'large' },
+            { id: "Clinical Policy", group: "clinical", radius: 7, type: 'large' },
+            { id: "Python", group: "technical", radius: 7, type: 'large' },
+            { id: "RN License", group: "clinical", radius: 5, type: 'medium' },
+            { id: "CMS Regulations", group: "clinical", radius: 5, type: 'medium' },
+            { id: "RPA (pyautogui)", group: "technical", radius: 5, type: 'medium' },
+            { id: "Process Design", group: "operational", radius: 5, type: 'medium' },
+            { id: "PySimpleGUI", group: "technical", radius: 3, type: 'small' }
+        ],
+        'role-home-health': [
+            { id: "Python", group: "technical", radius: 7, type: 'large' },
+            { id: "RPA (Selenium)", group: "technical", radius: 7, type: 'large' },
+            { id: "RN License", group: "clinical", radius: 5, type: 'medium' },
+            { id: "Data Viz", group: "technical", radius: 5, type: 'medium' },
+            { id: "openpyxl", group: "technical", radius: 3, type: 'small' },
+            { id: "Compliance Auto", group: "operational", radius: 3, type: 'small' }
+        ],
+        'role-neuro': [
+            { id: "RN License", group: "clinical", radius: 7, type: 'large' },
+            { id: "Staff Onboarding", group: "operational", radius: 5, type: 'medium' }
+        ]
+    };
+
+    const colors = {
+        clinical: '#60a5fa',
+        technical: '#4ade80',
+        operational: '#fbbf24'
+    };
+
+    // Use Intersection observer to trigger graph animations when scrolled into view
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const container = entry.target;
+                if (!container.dataset.initialized) {
+                    renderGraph(container);
+                    container.dataset.initialized = 'true';
+                }
+            }
+        });
+    }, { threshold: 0.1 });
+
+    Object.keys(roleSkills).forEach(roleId => {
+        const item = document.getElementById(roleId);
+        if (item) {
+            const container = item.querySelector('.timeline-graph-container');
+            if (container) observer.observe(container);
+        }
+    });
+
+    function renderGraph(container) {
+        const roleId = container.parentElement.id;
+        const nodes = roleSkills[roleId].map(d => Object.create(d));
+
+        // Remove edges array to support floating scatter cluster
+        const width = container.clientWidth || 300;
+        const height = container.clientHeight || 300;
+
+        const svg = d3.select(container).append("svg")
+            .attr("width", "100%")
+            .attr("height", "100%")
+            .style("overflow", "visible"); // Allow nodes to drift slightly out
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("charge", d3.forceManyBody().strength(-80))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("collide", d3.forceCollide().radius(d => d.radius + 20).iterations(3))
+            .alphaTarget(0.005) // slight continuous drift
+            .velocityDecay(0.6);
+
+        const node = svg.append("g")
+            .selectAll("g")
+            .data(nodes)
+            .join("g")
+            .style("cursor", "crosshair")
+            .style("opacity", 0); // start invisible for staggered fade-in
+
+        // Subtle glow radius
+        node.append("circle")
+            .attr("r", d => d.radius * 2.5)
+            .attr("fill", d => colors[d.group])
+            .attr("opacity", 0.15);
+
+        // Core solid circle (border mapped to group per requirements)
+        node.append("circle")
+            .attr("class", "timeline-node-core")
+            .attr("r", d => d.radius)
+            .attr("fill", "transparent")
+            .attr("stroke", d => colors[d.group])
+            .attr("stroke-width", 1.5);
+
+        // Node labels
+        node.append("text")
+            .text(d => d.id)
+            .attr("x", d => d.radius + 8)
+            .attr("y", 4)
+            .attr("font-size", d => d.type === 'large' ? "12px" : "10px")
+            .attr("font-weight", d => d.type === 'large' ? "600" : "500")
+            .attr("fill", "rgba(255,255,255,0.7)")
+            .style("opacity", d => d.type === 'small' ? 0 : 1) // Hide labels for small nodes initially
+            .style("pointer-events", "none")
+            .style("transition", "opacity 0.2s ease");
+
+        // Hover Effect
+        node.on("mouseover", function (event, d) {
+            d3.select(this).select("circle.timeline-node-core")
+                .transition().duration(200)
+                .attr("r", d.radius * 2)
+                .attr("fill", colors[d.group]) // Fill it in on hover
+                .attr("fill-opacity", 0.3);
+            d3.select(this).select("text")
+                .transition().duration(200)
+                .style("opacity", 1) // Show label always on hover
+                .attr("fill", "#ffffff")
+                .attr("font-weight", "600");
+        }).on("mouseout", function (event, d) {
+            d3.select(this).select("circle.timeline-node-core")
+                .transition().duration(300)
+                .attr("r", d.radius)
+                .attr("fill", "transparent");
+            d3.select(this).select("text")
+                .transition().duration(300)
+                .style("opacity", d.type === 'small' ? 0 : 1)
+                .attr("fill", "rgba(255,255,255,0.7)")
+                .attr("font-weight", d.type === 'large' ? "600" : "500");
+        });
+
+        // Add staggered fade-in transition when graph renders
+        node.transition()
+            .delay((d, i) => i * 60)
+            .duration(800)
+            .style("opacity", 1);
+
+        simulation.on("tick", () => {
+            // Keep roughly within bounds but allow a bit more padding since container is larger
+            nodes.forEach(d => {
+                const pad = 30;
+                d.x = Math.max(pad, Math.min(width - pad, d.x));
+                d.y = Math.max(pad, Math.min(height - pad, d.y));
+            });
+
+            node.attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+
+        // Gentle entrance kick
+        simulation.alpha(0.3).restart();
+    }
+}
+
 // Ensure init is called after content load
 if (typeof d3 !== 'undefined') {
     initSkillGraph();
     initAmbientSkillsGraph();
+    initTimelineGraphs();
 } else {
     // If D3 loads slightly after app.js
     window.addEventListener('load', () => {
         initSkillGraph();
         initAmbientSkillsGraph();
+        initTimelineGraphs();
     });
 }
